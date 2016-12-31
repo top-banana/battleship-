@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="battleship.css">
+</head>
+<body>
+  <div class="row" id="buttonpanel">
+    <div class="grid" id="shipbutton"><button type="button" id="patrolboat">Patrol Boat</button></div>
+    <div class="grid" id="shipbutton"><button type="button" id="sub">Submarine</button></div>
+    <div class="grid" id="shipbutton"><button type="button" id="destroyer">Destroyer</button></div>
+    <div class="grid" id="shipbutton"><button type="button" id="battleship">Battleship</button></div>
+    <div class="grid" id="shipbutton"><button type="button" id="carrier">Aircraft Carrier</button></div>
+  </div>
+
+  <div class="row" id="header">
+    <div class="grid" id="gridside"></div>
+    <div class="grid" id="header">A</div>
+    <div class="grid" id="header">B</div>
+    <div class="grid" id="header">C</div>
+    <div class="grid" id="header">D</div>
+    <div class="grid" id="header">E</div>
+    <div class="grid" id="header">F</div>
+    <div class="grid" id="header">G</div>
+    <div class="grid" id="header">H</div>
+    <div class="grid" id="header">I</div>
+    <div class="grid" id="header">J</div>
+  </div>
+
+  <div class="row" id="shiprowA">
+    <div class="grid" id="gridside">0</div>
+    <div class="grid" id="gridA0">A0</div>
+    <div class="grid" id="gridB0">B0</div>
+    <div class="grid" id="gridC0">C0</div>
+    <div class="grid" id="gridD0">D0</div>
+    <div class="grid" id="gridE0">E0</div>
+    <div class="grid" id="gridF0">F0</div>
+    <div class="grid" id="gridG0">G0</div>
+    <div class="grid" id="gridH0">H0</div>
+    <div class="grid" id="gridI0">I0</div>
+    <div class="grid" id="gridJ0">J0</div>
+  </div>
+
+  <div class="row" id="rowB">
+    <div class="grid" id="gridside">1</div>
+    <div class="grid" id="gridA1">A1</div>
+    <div class="grid" id="gridB1">B1</div>
+    <div class="grid" id="gridC1">C1</div>
+    <div class="grid" id="gridD1">D1</div>
+    <div class="grid" id="gridE1">E1</div>
+    <div class="grid" id="griFd1">F1</div>
+    <div class="grid" id="gridG1">G1</div>
+    <div class="grid" id="gridH1">H1</div>
+    <div class="grid" id="gridI1">I1</div>
+    <div class="grid" id="gridJ1">J1</div>
+  </div>
+
+  <div class="row" id="rowC">
+    <div class="grid" id="gridside">2</div>
+    <div class="grid" id="gridA2">A2</div>
+    <div class="grid" id="gridB2">B2</div>
+    <div class="grid" id="gridC2">C2</div>
+    <div class="grid" id="gridD2">D2</div>
+    <div class="grid" id="gridE2">E2</div>
+    <div class="grid" id="gridF2">F2</div>
+    <div class="grid" id="gridG2">G2</div>
+    <div class="grid" id="gridH2">H2</div>
+    <div class="grid" id="gridI2">I2</div>
+    <div class="grid" id="gridJ2">J2</div>
+  </div>
+
+  <div class="row" id="rowD">
+    <div class="grid" id="gridside">3</div>
+    <div class="grid" id="gridA3">A3</div>
+    <div class="grid" id="gridB3">B3</div>
+    <div class="grid" id="gridC3">C3</div>
+    <div class="grid" id="gridD3">D3</div>
+    <div class="grid" id="gridE3">E3</div>
+    <div class="grid" id="gridF3">F3</div>
+    <div class="grid" id="gridG3">G3</div>
+    <div class="grid" id="gridH3">H3</div>
+    <div class="grid" id="gridI3">I3</div>
+    <div class="grid" id="gridJ3">J3</div>
+  </div>
+
+  <div class="row" id="rowE">
+    <div class="grid" id="gridside">4</div>
+    <div class="grid" id="gridA4">A4</div>
+    <div class="grid" id="gridB4">B4</div>
+    <div class="grid" id="gridC4">C4</div>
+    <div class="grid" id="gridD4">D4</div>
+    <div class="grid" id="gridE4">E4</div>
+    <div class="grid" id="gridF4">F4</div>
+    <div class="grid" id="gridG4">G4</div>
+    <div class="grid" id="gridH4">H4</div>
+    <div class="grid" id="gridI4">I4</div>
+    <div class="grid" id="gridJ4">J4</div>
+  </div>
+  <div class="row" id="rowF">
+    <div class="grid" id="gridside">5</div>
+    <div class="grid" id="gridA5">A5</div>
+    <div class="grid" id="gridB5">B5</div>
+    <div class="grid" id="gridC5">C5</div>
+    <div class="grid" id="gridD5">D5</div>
+    <div class="grid" id="gridE5">E5</div>
+    <div class="grid" id="gridF5">F5</div>
+    <div class="grid" id="gridG5">G5</div>
+    <div class="grid" id="gridH5">H5</div>
+    <div class="grid" id="gridI5">I5</div>
+    <div class="grid" id="gridJ5">J5</div>
+  </div>
+
+  <div class="row" id="rowG">
+    <div class="grid" id="gridside">6</div>
+    <div class="grid" id="gridA6">A6</div>
+    <div class="grid" id="gridB6">B6</div>
+    <div class="grid" id="gridC6">C6</div>
+    <div class="grid" id="gridD6">D6</div>
+    <div class="grid" id="gridE6">E6</div>
+    <div class="grid" id="gridF6">F6</div>
+    <div class="grid" id="gridG6">G6</div>
+    <div class="grid" id="gridH6">H6</div>
+    <div class="grid" id="gridI6">I6</div>
+    <div class="grid" id="gridJ6">J6</div>
+  </div>
+
+  <div class="row" id="rowH">
+    <div class="grid" id="gridside">7</div>
+    <div class="grid" id="gridA7">A7</div>
+    <div class="grid" id="gridB7">B7</div>
+    <div class="grid" id="gridC7">C7</div>
+    <div class="grid" id="gridD7">D7</div>
+    <div class="grid" id="gridE7">E7</div>
+    <div class="grid" id="gridF7">F7</div>
+    <div class="grid" id="gridG7">G7</div>
+    <div class="grid" id="gridH7">H7</div>
+    <div class="grid" id="gridI7">I7</div>
+    <div class="grid" id="gridJ7">J7</div>
+  </div>
+
+  <div class="row" id="rowI">
+    <div class="grid" id="gridside">8</div>
+    <div class="grid" id="gridA8">A8</div>
+    <div class="grid" id="gridB8">B8</div>
+    <div class="grid" id="gridC8">C8</div>
+    <div class="grid" id="gridD8">D8</div>
+    <div class="grid" id="gridE8">E8</div>
+    <div class="grid" id="gridF8">F8</div>
+    <div class="grid" id="gridG8">G8</div>
+    <div class="grid" id="gridH8">H8</div>
+    <div class="grid" id="gridI8">I8</div>
+    <div class="grid" id="gridJ8">J8</div>
+</div>
+
+  <div class="row" id="rowJ">
+    <div class="grid" id="gridside">9</div>
+    <div class="grid" id="gridA9">A9</div>
+    <div class="grid" id="gridB9">B9</div>
+    <div class="grid" id="gridC9">C9</div>
+    <div class="grid" id="gridD9">D9</div>
+    <div class="grid" id="gridE9">E9</div>
+    <div class="grid" id="gridF9">F9</div>
+    <div class="grid" id="gridG9">G9</div>
+    <div class="grid" id="gridH9">H9</div>
+    <div class="grid" id="gridI9">I9</div>
+    <div class="grid" id="gridJ9">J9</div>
+  </div>
+
+  <!-- <div class="row" id="header">
+    <div class="grid" id="gridside"></div>
+    <div class="grid" id="header">A</div>
+    <div class="grid" id="header">B</div>
+    <div class="grid" id="header">C</div>
+    <div class="grid" id="header">D</div>
+    <div class="grid" id="header">E</div>
+    <div class="grid" id="header">F</div>
+    <div class="grid" id="header">G</div>
+    <div class="grid" id="header">H</div>
+    <div class="grid" id="header">I</div>
+    <div class="grid" id="header">J</div>
+  </div> -->
+
+  <div class="comrow" id="comrowA">
+    <div class="grid" id="gridside">0</div>
+    <div class="grid" id="gridA0">A0</div>
+    <div class="grid" id="gridB0">B0</div>
+    <div class="grid" id="gridC0">C0</div>
+    <div class="grid" id="gridD0">D0</div>
+    <div class="grid" id="gridE0">E0</div>
+    <div class="grid" id="gridF0">F0</div>
+    <div class="grid" id="gridG0">G0</div>
+    <div class="grid" id="gridH0">H0</div>
+    <div class="grid" id="gridI0">I0</div>
+    <div class="grid" id="gridJ0">J0</div>
+  </div>
+
+  <div class="comrow" id="comrowB">
+    <div class="grid" id="gridside">1</div>
+    <div class="grid" id="gridA1">A1</div>
+    <div class="grid" id="gridB1">B1</div>
+    <div class="grid" id="gridC1">C1</div>
+    <div class="grid" id="gridD1">D1</div>
+    <div class="grid" id="gridE1">E1</div>
+    <div class="grid" id="griFd1">F1</div>
+    <div class="grid" id="gridG1">G1</div>
+    <div class="grid" id="gridH1">H1</div>
+    <div class="grid" id="gridI1">I1</div>
+    <div class="grid" id="gridJ1">J1</div>
+  </div>
+
+  <div class="comrow" id="comrowC">
+    <div class="grid" id="gridside">2</div>
+    <div class="grid" id="gridA2">A2</div>
+    <div class="grid" id="gridB2">B2</div>
+    <div class="grid" id="gridC2">C2</div>
+    <div class="grid" id="gridD2">D2</div>
+    <div class="grid" id="gridE2">E2</div>
+    <div class="grid" id="gridF2">F2</div>
+    <div class="grid" id="gridG2">G2</div>
+    <div class="grid" id="gridH2">H2</div>
+    <div class="grid" id="gridI2">I2</div>
+    <div class="grid" id="gridJ2">J2</div>
+  </div>
+
+  <div class="comrow" id="comrowD">
+    <div class="grid" id="gridside">3</div>
+    <div class="grid" id="gridA3">A3</div>
+    <div class="grid" id="gridB3">B3</div>
+    <div class="grid" id="gridC3">C3</div>
+    <div class="grid" id="gridD3">D3</div>
+    <div class="grid" id="gridE3">E3</div>
+    <div class="grid" id="gridF3">F3</div>
+    <div class="grid" id="gridG3">G3</div>
+    <div class="grid" id="gridH3">H3</div>
+    <div class="grid" id="gridI3">I3</div>
+    <div class="grid" id="gridJ3">J3</div>
+  </div>
+
+  <div class="comrow" id="comrowE">
+    <div class="grid" id="gridside">4</div>
+    <div class="grid" id="gridA4">A4</div>
+    <div class="grid" id="gridB4">B4</div>
+    <div class="grid" id="gridC4">C4</div>
+    <div class="grid" id="gridD4">D4</div>
+    <div class="grid" id="gridE4">E4</div>
+    <div class="grid" id="gridF4">F4</div>
+    <div class="grid" id="gridG4">G4</div>
+    <div class="grid" id="gridH4">H4</div>
+    <div class="grid" id="gridI4">I4</div>
+    <div class="grid" id="gridJ4">J4</div>
+  </div>
+
+  <div class="comrow" id="comrowF">
+    <div class="grid" id="gridside">5</div>
+    <div class="grid" id="gridA5">A5</div>
+    <div class="grid" id="gridB5">B5</div>
+    <div class="grid" id="gridC5">C5</div>
+    <div class="grid" id="gridD5">D5</div>
+    <div class="grid" id="gridE5">E5</div>
+    <div class="grid" id="gridF5">F5</div>
+    <div class="grid" id="gridG5">G5</div>
+    <div class="grid" id="gridH5">H5</div>
+    <div class="grid" id="gridI5">I5</div>
+    <div class="grid" id="gridJ5">J5</div>
+  </div>
+
+  <div class="comrow" id="comrowG">
+    <div class="grid" id="gridside">6</div>
+    <div class="grid" id="gridA6">A6</div>
+    <div class="grid" id="gridB6">B6</div>
+    <div class="grid" id="gridC6">C6</div>
+    <div class="grid" id="gridD6">D6</div>
+    <div class="grid" id="gridE6">E6</div>
+    <div class="grid" id="gridF6">F6</div>
+    <div class="grid" id="gridG6">G6</div>
+    <div class="grid" id="gridH6">H6</div>
+    <div class="grid" id="gridI6">I6</div>
+    <div class="grid" id="gridJ6">J6</div>
+  </div>
+
+  <div class="comrow" id="comrowH">
+    <div class="grid" id="gridside">7</div>
+    <div class="grid" id="gridA7">A7</div>
+    <div class="grid" id="gridB7">B7</div>
+    <div class="grid" id="gridC7">C7</div>
+    <div class="grid" id="gridD7">D7</div>
+    <div class="grid" id="gridE7">E7</div>
+    <div class="grid" id="gridF7">F7</div>
+    <div class="grid" id="gridG7">G7</div>
+    <div class="grid" id="gridH7">H7</div>
+    <div class="grid" id="gridI7">I7</div>
+    <div class="grid" id="gridJ7">J7</div>
+  </div>
+  <div class="comrow" id="comrowI">
+    <div class="grid" id="gridside">8</div>
+    <div class="grid" id="gridA8">A8</div>
+    <div class="grid" id="gridB8">B8</div>
+    <div class="grid" id="gridC8">C8</div>
+    <div class="grid" id="gridD8">D8</div>
+    <div class="grid" id="gridE8">E8</div>
+    <div class="grid" id="gridF8">F8</div>
+    <div class="grid" id="gridG8">G8</div>
+    <div class="grid" id="gridH8">H8</div>
+    <div class="grid" id="gridI8">I8</div>
+    <div class="grid" id="gridJ8">J8</div>
+</div>
+
+  <div class="comrow" id="comrowJ">
+    <div class="grid" id="gridside">9</div>
+    <div class="grid" id="gridA9">A9</div>
+    <div class="grid" id="gridB9">B9</div>
+    <div class="grid" id="gridC9">C9</div>
+    <div class="grid" id="gridD9">D9</div>
+    <div class="grid" id="gridE9">E9</div>
+    <div class="grid" id="gridF9">F9</div>
+    <div class="grid" id="gridG9">G9</div>
+    <div class="grid" id="gridH9">H9</div>
+    <div class="grid" id="gridI9">I9</div>
+    <div class="grid" id="gridJ9">J9</div>
+  </div>
+
+  <div><button class="restartbutton">Restart</button></div>
+  </html>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
+  <script src="battleship.js"></script>
+</body>
