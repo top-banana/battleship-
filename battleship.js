@@ -18,7 +18,7 @@ var ROW = board.length
 var COLUMN = board[0].length
 
 // note: everything is being measured from the top left hand corner of the square ---> that is the (0,0) origin position
-$("body").prepend($("<button>", {id: "patrolboat", "class": "shipbutton"}), $("<button>", {id: "sub", "class": "shipbutton"}), $("<button>", {id: "destroyer", "class": "shipbutton"}), $("<button>", {id: "carrier", "class": "shipbutton"}), $("<button>", {id: "battleship", "class": "shipbutton"}), $("<button>", {id: "setship", "class": "shipbutton"}));
+$("body").prepend($("<button>", {id: "patrolboat", "class": "shipbutton"}), $("<button>", {id: "sub", "class": "shipbutton"}), $("<button>", {id: "destroyer", "class": "shipbutton"}), $("<button>", {id: "carrier", "class": "shipbutton"}), $("<button>", {id: "battleship", "class": "shipbutton"}), $("<button>", {id: "setship", "class": "shipbutton"}),  $("<button>", {id: "start", "class": "shipbutton"}));
 
 for (var row = 0; row < ROW; row++) {
   for (var column = 0; column < COLUMN; column++) {
@@ -749,7 +749,6 @@ $("#battleship").append("Battleship").click(function () {
           $("#" +"R"+row+"C"+column).off()
       }
       if (row >= 6 && column >=6) {
-        console.log("rowtoblock");
         $("#" +"R"+row+"C"+column).off()
       }
     }
@@ -777,4 +776,30 @@ $("#setship").append("Set Ship").click(function () {
      setBattleship = true
      setBattleshipPosition()
    }
+})
+
+var playernumberofpositionsfilled = 0
+$("#start").append("Start").click(function () {
+  for (let row = 0; row < ROW; row++) {
+    for (let column = 0; column < COLUMN; column++) {
+      if (board[row][column] === 1) {
+        playernumberofpositionsfilled += 1
+      }
+    }
+  }
+    if (playernumberofpositionsfilled === 17) {
+      alert("OFF TO WAR!!")
+      $(".cell").off()
+      playernumberofpositionsfilled = 0
+      for (let comcellrow = 0; comcellrow < ROW; comcellrow++) {
+        for (let comcellcolumn = 0; comcellcolumn < COLUMN; comcellcolumn++) {
+            $("#" +"R"+comcellrow+"C"+comcellcolumn+".comcell").click(function () {
+              PlayerMakeAMove()
+            })
+        }
+      }
+    }
+    else if (playernumberofpositionsfilled < 17) {
+      alert("Some ships have not been placed")
+  }
 })
