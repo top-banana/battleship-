@@ -16,7 +16,6 @@ var computerBoardForPlayer1 = [
 var playernumberofhits = 0
 var computernumberofhits = 0
 function PlayerMakeAMove(playerclickedthisrow, playerclickedthiscol) {
-  // if (isGameOver === false) {
     if (computerBoardForPlayer1[playerclickedthisrow][playerclickedthiscol] === 0) {
       $("#" +"R"+(playerclickedthisrow)+"C"+(playerclickedthiscol)+".comcell").css("background-color", "black")
     }
@@ -26,7 +25,6 @@ function PlayerMakeAMove(playerclickedthisrow, playerclickedthiscol) {
       playernumberofhits += 1
       console.log(playernumberofhits);
     }
-  // }
   if (isGameOver()) {
     whoWins()
     $(".cell").off()
@@ -65,25 +63,21 @@ function computerStrategy() {
 
 function whoWins() {
   if (playernumberofhits === 17) {
-    console.log(playernumberofhits);
     alert("Humanity FTW")
     return true
   }
   else if (computernumberofhits === 17) {
-    console.log(computernumberofhits);
+    // console.log(computernumberofhits);
     alert("Losing faith in humanity")
-    return true
-  }
-  else if (playernumberofhits < 17 || computernumberofhits < 17) {
     return false
   }
 }
 
 function isGameOver() {
-  if (whoWins) {
+  if (playernumberofhits === 17 || computernumberofhits === 17) {
     return true
   }
-  else {
+  else if (playernumberofhits < 17 || computernumberofhits < 17){
     return false
   }
 }
