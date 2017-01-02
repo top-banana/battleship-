@@ -307,6 +307,19 @@ $("#sub").append("Submarine").click(function () {
       if (board[row][column] === 1) {
         $("#" +"R"+row+"C"+column).off()
       }
+      if (row === 8 && column === 8) {
+        $("#" +"R"+row+"C"+column).off()
+      }
+
+      if (row === 8 && column === 9) {
+        $("#" +"R"+row+"C"+column).off()
+      }
+      if (row === 9 && column === 8) {
+        $("#" +"R"+row+"C"+column).off()
+      }
+      if (row === 9 && column === 9) {
+        $("#" +"R"+row+"C"+column).off()
+      }
     }
   }
 })
@@ -318,11 +331,7 @@ function makeDestroyer(row, column, length) {
     if (column < 8) {
       colorACell(row, (column+i), "red")
     }
-    // else if (column === 8 && row === 8 ||column === 8 && row === 9 || column === 9 & row === 9 ||
-    // column === 9 && row === 8 ) {
-    //   // colorACell(row, column, "white")
-    //     $("#" +"R"+row+"C"+column).off()
-    // }
+
     else if (column === 8 || column === 9) {
       colorACell((row+i), column, "red")
       DestroyerDirection = "vertical"
@@ -443,6 +452,18 @@ $("#destroyer").append("Destroyer").click(function () {
      if (board[row][column] === 1) {
          $("#" +"R"+row+"C"+column).off()
      }
+     if (row === 8 && column === 8) {
+       $("#" +"R"+row+"C"+column).off()
+     }
+     if (row === 8 && column === 9) {
+       $("#" +"R"+row+"C"+column).off()
+     }
+     if (row === 9 && column === 8) {
+       $("#" +"R"+row+"C"+column).off()
+     }
+     if (row === 9 && column === 9) {
+       $("#" +"R"+row+"C"+column).off()
+     }
    }
  }
 })
@@ -453,17 +474,40 @@ function makeCarrier(row, column, length) {
     if (column < 7) {
       colorACell(row, (column+i), "red")
     }
-    else {
+    else if (column >= 7) {
       colorACell((row+i), column, "red")
       CarrierDirection = "vertical"
     }
     if (CarrierDirection === "horizontal") {
-      $("#" +"R"+row+"C"+column).click(function () {
-        colorACell((row+i), column, "red")
-        colorACell(row, column, "red")
-        colorACell(row, (column+i), "white")
-        CarrierDirection = "vertical"
-      })
+      if (row === 7) {
+        $("#" +"R"+row+"C"+column).click(function () {
+          colorACell(row, (column+i), "red")
+          colorACell(row, column, "red")
+          CarrierDirection = "horizontal"
+        })
+      }
+      if (row === 8) {
+        $("#" +"R"+row+"C"+column).click(function () {
+          colorACell(row, (column+i), "red")
+          colorACell(row, column, "red")
+          CarrierDirection = "horizontal"
+        })
+      }
+      if (row === 9) {
+        $("#" +"R"+row+"C"+column).click(function () {
+          colorACell(row, (column+i), "red")
+          colorACell(row, column, "red")
+          CarrierDirection = "horizontal"
+        })
+      }
+      else if (row < 7) {
+        $("#" +"R"+row+"C"+column).click(function () {
+            colorACell((row+i), column, "red")
+            colorACell(row, column, "red")
+            colorACell(row, (column+i), "white")
+            CarrierDirection = "vertical"
+          })
+      }
     }
     else if (CarrierDirection === "vertical") {
       if (column < 7) {
@@ -576,6 +620,33 @@ $("#carrier").append("Carrier").click(function () {
       })
       if (board[row][column] === 1) {
           $("#" +"R"+row+"C"+column).off()
+      }
+      if (row === 7 && column === 7) {
+        $("#" +"R"+row+"C"+column).off()
+      }
+      if (row === 7 && column === 8) {
+        $("#" +"R"+row+"C"+column).off()
+      }
+      if (row === 7 && column === 9) {
+        $("#" +"R"+row+"C"+column).off()
+      }
+      if (row === 8 && column === 7) {
+        $("#" +"R"+row+"C"+column).off()
+      }
+      if (row === 8 && column === 8) {
+        $("#" +"R"+row+"C"+column).off()
+      }
+      if (row === 8 && column === 9) {
+        $("#" +"R"+row+"C"+column).off()
+      }
+      if (row === 9 && column === 7) {
+        $("#" +"R"+row+"C"+column).off()
+      }
+      if (row === 9 && column === 8) {
+        $("#" +"R"+row+"C"+column).off()
+      }
+      if (row === 9 && column === 9) {
+        $("#" +"R"+row+"C"+column).off()
       }
     }
   }
