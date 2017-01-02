@@ -307,17 +307,7 @@ $("#sub").append("Submarine").click(function () {
       if (board[row][column] === 1) {
         $("#" +"R"+row+"C"+column).off()
       }
-      if (row === 8 && column === 8) {
-        $("#" +"R"+row+"C"+column).off()
-      }
-
-      if (row === 8 && column === 9) {
-        $("#" +"R"+row+"C"+column).off()
-      }
-      if (row === 9 && column === 8) {
-        $("#" +"R"+row+"C"+column).off()
-      }
-      if (row === 9 && column === 9) {
+      if (row >= 8 && column >= 8) {
         $("#" +"R"+row+"C"+column).off()
       }
     }
@@ -452,16 +442,7 @@ $("#destroyer").append("Destroyer").click(function () {
      if (board[row][column] === 1) {
          $("#" +"R"+row+"C"+column).off()
      }
-     if (row === 8 && column === 8) {
-       $("#" +"R"+row+"C"+column).off()
-     }
-     if (row === 8 && column === 9) {
-       $("#" +"R"+row+"C"+column).off()
-     }
-     if (row === 9 && column === 8) {
-       $("#" +"R"+row+"C"+column).off()
-     }
-     if (row === 9 && column === 9) {
+     if (row >= 8 && column >= 8) {
        $("#" +"R"+row+"C"+column).off()
      }
    }
@@ -479,27 +460,14 @@ function makeCarrier(row, column, length) {
       CarrierDirection = "vertical"
     }
     if (CarrierDirection === "horizontal") {
-      if (row === 7) {
+      if (row >= 7) {
         $("#" +"R"+row+"C"+column).click(function () {
           colorACell(row, (column+i), "red")
           colorACell(row, column, "red")
           CarrierDirection = "horizontal"
         })
       }
-      if (row === 8) {
-        $("#" +"R"+row+"C"+column).click(function () {
-          colorACell(row, (column+i), "red")
-          colorACell(row, column, "red")
-          CarrierDirection = "horizontal"
-        })
-      }
-      if (row === 9) {
-        $("#" +"R"+row+"C"+column).click(function () {
-          colorACell(row, (column+i), "red")
-          colorACell(row, column, "red")
-          CarrierDirection = "horizontal"
-        })
-      }
+
       else if (row < 7) {
         $("#" +"R"+row+"C"+column).click(function () {
             colorACell((row+i), column, "red")
@@ -621,31 +589,7 @@ $("#carrier").append("Carrier").click(function () {
       if (board[row][column] === 1) {
           $("#" +"R"+row+"C"+column).off()
       }
-      if (row === 7 && column === 7) {
-        $("#" +"R"+row+"C"+column).off()
-      }
-      if (row === 7 && column === 8) {
-        $("#" +"R"+row+"C"+column).off()
-      }
-      if (row === 7 && column === 9) {
-        $("#" +"R"+row+"C"+column).off()
-      }
-      if (row === 8 && column === 7) {
-        $("#" +"R"+row+"C"+column).off()
-      }
-      if (row === 8 && column === 8) {
-        $("#" +"R"+row+"C"+column).off()
-      }
-      if (row === 8 && column === 9) {
-        $("#" +"R"+row+"C"+column).off()
-      }
-      if (row === 9 && column === 7) {
-        $("#" +"R"+row+"C"+column).off()
-      }
-      if (row === 9 && column === 8) {
-        $("#" +"R"+row+"C"+column).off()
-      }
-      if (row === 9 && column === 9) {
+      if (row >= 7 && column >=7) {
         $("#" +"R"+row+"C"+column).off()
       }
     }
@@ -665,6 +609,14 @@ function makeBattleship(row, column, length) {
       }
 
     if (BattleshipDirection === "horizontal") {
+      if (row >=6) {
+        $("#" +"R"+row+"C"+column).click(function () {
+          colorACell(row, (column+i), "red")
+          // colorACell (row, column, "red")
+          BattleshipDirection = "horizontal"
+        })
+      }
+      else {
         $("#" +"R"+row+"C"+column).click(function () {
           colorACell((row+i), column, "red")
           colorACell (row, column, "red")
@@ -672,6 +624,7 @@ function makeBattleship(row, column, length) {
           BattleshipDirection = "vertical"
         })
       }
+    }
   else if (BattleshipDirection === "vertical") {
     $("#" +"R"+row+"C"+column).click(function () {
       if (column < 6) {
@@ -684,6 +637,7 @@ function makeBattleship(row, column, length) {
     }
   }
 }
+
 
 function makeBattleshipWhite (row, column, length) {
   for (var i = 0; i < length; i++) {
@@ -793,6 +747,10 @@ $("#battleship").append("Battleship").click(function () {
       })
       if (board[row][column] === 1) {
           $("#" +"R"+row+"C"+column).off()
+      }
+      if (row >= 6 && column >=6) {
+        console.log("rowtoblock");
+        $("#" +"R"+row+"C"+column).off()
       }
     }
   }
