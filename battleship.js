@@ -779,6 +779,7 @@ $("#setship").append("Set Ship").click(function () {
 })
 
 var playernumberofpositionsfilled = 0
+var playerclickedthisrow, playerclickedthiscol;
 $("#start").append("Start").click(function () {
   for (let row = 0; row < ROW; row++) {
     for (let column = 0; column < COLUMN; column++) {
@@ -794,7 +795,12 @@ $("#start").append("Start").click(function () {
       for (let comcellrow = 0; comcellrow < ROW; comcellrow++) {
         for (let comcellcolumn = 0; comcellcolumn < COLUMN; comcellcolumn++) {
             $("#" +"R"+comcellrow+"C"+comcellcolumn+".comcell").click(function () {
-              PlayerMakeAMove()
+              playerclickedthisrow = comcellrow
+              playerclickedthiscol = comcellcolumn
+              console.log(playerclickedthisrow, playerclickedthiscol);
+              PlayerMakeAMove(playerclickedthisrow, playerclickedthiscol)
+              computerStrategy()
+              computerMove()
             })
         }
       }
