@@ -110,7 +110,10 @@ function setBoatPosition() {
     $("#patrolboat").off()
     $(".cell").off()
   }
-
+  // BoatDirection = "horizontal"
+  // freshMoveBoat = true
+  // BoatClicked = false
+  // setBoat = false
   boatFinalCellClicked1.push(prevRowBoat, prevColBoat)
     if (BoatDirection === "horizontal") {
       prevRowBoat2 = prevRowBoat
@@ -797,7 +800,6 @@ $("#start").append("Start").click(function () {
             $("#" +"R"+comcellrow+"C"+comcellcolumn+".comcell").click(function () {
               playerclickedthisrow = comcellrow
               playerclickedthiscol = comcellcolumn
-              console.log(playerclickedthisrow, playerclickedthiscol);
               PlayerMakeAMove(playerclickedthisrow, playerclickedthiscol)
               computerStrategy()
               computerMove()
