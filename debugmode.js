@@ -1,3 +1,16 @@
+var debugboard  = [
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 1, 1, 0, 0, 0, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+  [0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+  [0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
+  [0, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+];
+
 var computerBoardForPlayer1 = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -34,27 +47,35 @@ function PlayerMakeAMove(playerclickedthisrow, playerclickedthiscol) {
 }
 
 function computerMove() {
-  computerStrategy()
-  // console.log("inside computer move"+computerRowToClick);
-  // console.log("inside computer move"+computerColToClick);
-  if(board[computerRowToClick][computerColToClick] === 0) {
+  // console.log("after computer strategy outside check"+computerRowToClick);
+  // console.log("after computer strategy outside check"+computerColToClick);
+  if(debugboard[computerRowToClick][computerColToClick] === 0) {
+    // console.log("after computer strategy inside check0"+computerRowToClick);
+    // console.log("after computer strategy inside check0"+computerColToClick);
   $("#" +"R"+(computerRowToClick)+"C"+(computerColToClick)+".cell").css("background-color", "black")
   computerRowToClick
   computerColToClick
   }
-  else if(board[computerRowToClick][computerColToClick] === 1) {
-    $("#" +"R"+row+"C"+column).css("background-color", "yellow")
-    board[computerRowToClick][computerColToClick] = 2
+  else if(debugboard[computerRowToClick][computerColToClick] === 1) {
+    // console.log("after computer strategy inside check1"+computerRowToClick);
+    // console.log("after computer strategy inside check1"+computerColToClick);
+      $("#" +"R"+(computerRowToClick)+"C"+(computerColToClick)+".cell").css("background-color", "yellow")
+    debugboard[computerRowToClick][computerColToClick] = 2
     computernumberofhits += 1
     computerRowToClick
     computerColToClick
-    }
+   }
   }
 
+  // function computerStrategy() {
+  //   // generate random number and click that number
+  //       computerRowToClick = Math.floor(Math.random() * (ROW))
+  //       computerColToClick = Math.floor(Math.random() * (COLUMN))
+  // }
 
-var computerRowToClick, computerColToClick;
-var RandomRowColAlreadyGenerated = []
-var RandomRow, RandomCol;
+var computerRowToClick, computerColToClick
+var PreviousRandomRowCol = []
+var RandomRow, RandomCol
 var RandomRowCol = []
 var generatefirstrandomnumber = true
 
@@ -99,7 +120,9 @@ function computerStrategy () {
     console.log(PreviousRandomRowCol.length);
   }
 }
-
+// PreviousRandomRowCol is an array that is dynamically changing...
+// when PreviousRandomRowCol.push(RandomRowCol) was updated within the loop, PreviousRandomRowCol length kept on increasing by 1 and the loop ran again till infinity
+// the while loop doesnt ALWAYS require a break... cuz everytime generateRandomRowCol() was run it was always checked against the condition such that if the condition was not fulfilled then it would automatically break out of the loop
 
 function whoWins() {
   if (playernumberofhits === 17) {

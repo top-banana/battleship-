@@ -26,7 +26,6 @@ for (var row = 0; row < ROW; row++) {
     $div.insertBefore(".script")
   }
 }
-
 for (var row = 0; row < ROW; row++) {
   for (var column = 0; column < COLUMN; column++) {
     // each cell to be set within a div
@@ -41,6 +40,74 @@ for (var row = 0; row < ROW; row++) {
 
 function colorACell(row,column,color) {
   $("#" +"R"+row+"C"+column).css("background-color", color)
+}
+
+// function to run after each ship has been set. allows u to determine the final row and column of the ships
+function shipHorizontal(row, column, length, shiptype) {
+  for (var i = 0; i < length; i++) {
+    if (shiptype === "patrolboat") {
+      colBoatOccupies = column + i
+      BoatFinalHorizontalCol.push(colBoatOccupies)
+      console.log("boat horizontal");
+      console.log(BoatFinalHorizontalCol);
+    }
+    if (shiptype === "submarine") {
+      colSubOccupies = column + i
+      SubFinalHorizontalCol.push(colSubOccupies)
+      console.log(SubFinalHorizontalCol);
+    }
+    if (shiptype === "destroyer") {
+      colDestroyerOccupies = column + i
+      DestroyerFinalHorizontalCol.push(colDestroyerOccupies)
+      console.log(DestroyerFinalHorizontalCol);
+    }
+    if (shiptype === "carrier") {
+      colCarrierOccupies = column + i
+      CarrierFinalHorizontalCol.push(colCarrierOccupies)
+      console.log(CarrierFinalHorizontalCol);
+    }
+    if (shiptype === "battleship") {
+      colBattleshipOccupies = column + i
+      BattleshipFinalHorizontalCol.push(colBattleshipOccupies)
+      console.log(BattleshipFinalHorizontalCol);
+    }
+  }
+}
+
+
+function shipVertical(row, column, length, shiptype) {
+  for (var i = 0; i < length; i++) {
+    if (shiptype === "patrolboat") {
+      rowBoatOccupies = row + i
+      BoatFinalVerticalRow.push(rowBoatOccupies)
+      console.log("boat vertical");
+      console.log(BoatFinalVerticalRow);
+    }
+    if (shiptype === "submarine") {
+      rowSubOccupies = row + i
+      SubFinalVerticalRow.push(rowSubOccupies)
+      console.log("sub vertical");
+      console.log(SubFinalVerticalRow);
+    }
+    if (shiptype === "destroyer") {
+      rowDestroyerOccupies = row + i
+      DestroyerFinalVerticalRow.push(rowDestroyerOccupies)
+      console.log("destroyer vertical");
+      console.log(DestroyerFinalVerticalRow);
+    }
+    if (shiptype === "carrier") {
+      rowCarrierOccupies = row + i
+      CarrierFinalVerticalRow.push(rowCarrierOccupies)
+      console.log("carrier vertical");
+      console.log(CarrierFinalVerticalRow);
+    }
+    if (shiptype === "battleship") {
+      rowBattleshipOccupies = row + i
+      BattleshipFinalVerticalRow.push(rowBattleshipOccupies)
+      console.log("battleship vertical");
+      console.log(BattleshipFinalVerticalRow);
+    }
+  }
 }
 
 var BoatDirection = "horizontal"
@@ -105,49 +172,68 @@ function makeBoatWhite(row, column, length) {
   }
 }
 
+var colBoatOccupies, rowBoatOccupies
+var BoatFinalHorizontalCol = []
+var BoatFinalHorizontalCol1 = []
+var BoatFinalHorizontalCol2 = []
+var BoatFinalPositionHorizontal = []
+
+var BoatFinalVerticalRow = []
+var BoatFinalVerticalRow1 = []
+var BoatFinalVerticalRow2 = []
+var BoatFinalPositionVertical = []
+
 function setBoatPosition() {
   if (setBoat) {
     $("#patrolboat").off()
     $(".cell").off()
   }
-  // BoatDirection = "horizontal"
-  // freshMoveBoat = true
-  // BoatClicked = false
-  // setBoat = false
-  boatFinalCellClicked1.push(prevRowBoat, prevColBoat)
-    if (BoatDirection === "horizontal") {
-      prevRowBoat2 = prevRowBoat
-      prevColBoat = prevColBoat + 1
-      boatFinalCellClicked2.push(prevRowBoat2, prevColBoat)
-    }
-    else if (BoatDirection === "vertical") {
-     prevRowBoat2 = prevRowBoat + 1
-     prevColBoat2 = prevColBoat
-     boatFinalCellClicked2.push(prevRowBoat2, prevColBoat2)
-    }
-    boatFinalPositionandDirection.push(boatFinalCellClicked1, boatFinalCellClicked2)
 
-    for (var row = 0; row < ROW; row++) {
-      for (var column = 0; column < COLUMN; column++) {
-          if (row === boatFinalPositionandDirection[0][0] && column === boatFinalPositionandDirection[0][1]) {
-            board[row][column] = 1
-          }
-          if (row === boatFinalPositionandDirection[1][0] && column === boatFinalPositionandDirection[1][1]) {
-            board[row][column] = 1
+    if (BoatDirection === "horizontal") {
+      shipHorizontal(prevRowBoat, prevColBoat, 2, "patrolboat")
+      BoatFinalHorizontalCol1.push(prevRowBoat, BoatFinalHorizontalCol[0])
+      // console.log(BoatFinalHorizontalCol1);
+      BoatFinalHorizontalCol2.push(prevRowBoat, BoatFinalHorizontalCol[1])
+      // console.log(BoatFinalHorizontalCol2);
+      BoatFinalPositionHorizontal.push(BoatFinalHorizontalCol1, BoatFinalHorizontalCol2)
+      // console.log(BoatFinalPositionHorizontal);
+      for (var row = 0; row < ROW; row++) {
+        for (var column = 0; column < COLUMN; column++) {
+          for (var i = 0; i < 2; i++) {
+            if (row === BoatFinalPositionHorizontal[i][0] && column === BoatFinalPositionHorizontal[i][1]) {
+              board[row][column] = 1
+            }
           }
         }
       }
+    }
+    else if (BoatDirection === "vertical") {
+      shipVertical(prevRowBoat, prevColBoat, 2, "patrolboat")
+      console.log("set boat vertical");
+      BoatFinalVerticalRow1.push(BoatFinalVerticalRow[0], prevColBoat)
+      console.log(BoatFinalVerticalRow1);
+      BoatFinalVerticalRow2.push(BoatFinalVerticalRow[1], prevColBoat)
+      console.log(BoatFinalVerticalRow2);
+      BoatFinalPositionVertical.push(BoatFinalVerticalRow1, BoatFinalVerticalRow2)
+      console.log(BoatFinalPositionVertical);
+      for (var row = 0; row < ROW; row++) {
+        for (var column = 0; column < COLUMN; column++) {
+          for (var i = 0; i < 2; i++) {
+            if (row === BoatFinalPositionVertical[i][0] && column === BoatFinalPositionVertical[i][1]) {
+              board[row][column] = 1
+              // on the board, determine where the ships are marked
+            }
+          }
+        }
+      }
+    }
+    console.log(board);
 }
 
 var freshMoveBoat = true
 var BoatClicked = false
 var setBoat = false
 var prevRowBoat, prevColBoat
-var prevRowBoat2, prevColBoat2
-var boatFinalPositionandDirection= []
-var boatFinalCellClicked1 = []
-// variables to record which cells were clicked. this is the initial cell clicked then using the info of this cell, we determine the position of the other cell i.e. boatFinalCellClicked2
-var boatFinalCellClicked2 = []
 
 $("#patrolboat").append("Patrol boat").click(function () {
   for (let row = 0; row < ROW; row++) {
@@ -232,58 +318,53 @@ function makeSubWhite(row, column, length) {
   }
 }
 
+var freshMoveSub = true
+var SubClicked = false
+var setSub = false
+var prevRowSub, prevColSub;
+var SubFinalPosition = []
+// var colSubOccupies
+// var rowSubOccupies
+// if HORIZONTAL --> column increases
+var SubFinalHorizontalCol = []
+var SubFinalHorizontal = []
+var SubFinalHorizontalCol1 = []
+var SubFinalHorizontalCol2 = []
+var SubFinalHorizontalCol3 = []
+// if VERTICAL --> row increases
+var SubFinalVerticalRow = []
+var SubFinalVertical = []
+var SubFinalVerticalCol1 = []
+var SubFinalVerticalCol2 = []
+var SubFinalVerticalCol3 = []
+
 function setSubPosition () {
   if (setSub) {
     $("#sub").off()
     $(".cell").off()
   }
 
-  SubFinalClicked1.push(prevRowSub, prevColSub)
   if (SubDirection === "horizontal") {
-    prevRowSub2 = prevRowSub
-    prevColSub2 = prevColSub + 1
-    SubFinalClicked2.push(prevRowSub2, prevColSub2)
-    prevRowSub3 = prevRowSub
-    prevColSub3 = prevColSub +2
-    SubFinalClicked3.push(prevRowSub3, prevColSub3)
-    SubFinalPosition.push(SubFinalClicked1, SubFinalClicked2, SubFinalClicked3)
+    shipHorizontal(prevRowSub, prevColSub, 3, "submarine")
   }
 
   else if (SubDirection === "vertical") {
-    prevRowSub2 = prevRowSub + 1
-    prevColSub2 = prevColSub
-    SubFinalClicked2.push(prevRowSub2, prevColSub2)
-    prevRowSub3 = prevRowSub + 2
-    prevColSub3 = prevColSub
-    SubFinalClicked3.push(prevRowSub3, prevColSub3)
-    SubFinalPosition.push(SubFinalClicked1, SubFinalClicked2, SubFinalClicked3)
+    shipVertical(prevRowSub, prevColSub, 3, "submarine")
+
   }
-  for (var row = 0; row < ROW; row++) {
-    for (var column = 0; column < COLUMN; column++) {
-      if (row === SubFinalPosition[0][0] && column === SubFinalPosition[0][1]) {
-        board[row][column] = 1
-      }
-      if (row === SubFinalPosition[1][0] && column === SubFinalPosition[1][1]) {
-        board[row][column] = 1
-      }
-      if (row === SubFinalPosition[2][0] && column === SubFinalPosition[2][1]) {
-        board[row][column] = 1
-      }
-    }
-  }
+
+  // for (var row = 0; row < ROW; row++) {
+  //   for (var column = 0; column < COLUMN; column++) {
+  //     for (var i = 0; i < 3; i++) {
+  //       if (row === SubFinalPosition[i][0] && column === SubFinalPosition[i][1]) {
+  //         board[row][column] = 1
+  //       }
+  //     }
+  //   }
+  // }
+  //       console.log(board);
 }
 
-
-var freshMoveSub = true
-var SubClicked = false
-var setSub = false
-var prevRowSub, prevColSub;
-var SubFinalPosition = []
-var SubFinalClicked1 = []
-var SubFinalClicked2 = []
-var prevRowSub2, prevColSub2
-var SubFinalClicked3 = []
-var prevRowSub3, prevColSub3;
 
 $("#sub").append("Submarine").click(function () {
     SubClicked = true
@@ -371,42 +452,28 @@ function makeDestroyerWhite(row, column, length) {
   }
 }
 
+var colDestroyerOccupies, rowDestroyerOccupies;
+var DestroyerFinalHorizontalCol = []
+var DestroyerFinalVerticalRow = []
+
 function setDestroyerPosition() {
   if(setDestroyer) {
     $("#destroyer").off()
     $(".cell").off()
   }
 
-  DestroyerFinalClicked1.push(prevRowDestroyer, prevColDestroyer)
+  // to find out final position of ship
     if (DestroyerDirection === "horizontal") {
-      prevRowDestroyer2 = prevRowDestroyer
-      prevColDestroyer2 = prevColDestroyer + 1
-    DestroyerFinalClicked2.push(prevRowDestroyer2, prevColDestroyer2)
-      prevRowDestroyer3 = prevRowDestroyer
-      prevColDestroyer3 = prevColDestroyer +2
-    DestroyerFinalClicked3.push(prevRowDestroyer3, prevColDestroyer3)
-    DestroyerFinalPosition.push(DestroyerFinalClicked1, DestroyerFinalClicked2, DestroyerFinalClicked3)
+      shipHorizontal(prevRowDestroyer, prevColDestroyer, 3, "destroyer")
   }
-
     else if (DestroyerDirection === "vertical") {
-      prevRowDestroyer2 = prevRowDestroyer + 1
-      prevColDestroyer2 = prevColDestroyer
-    DestroyerFinalClicked2.push(prevRowDestroyer2, prevColDestroyer2)
-      prevRowDestroyer3 = prevRowDestroyer + 2
-      prevColDestroyer3 = prevColDestroyer
-    DestroyerFinalClicked3.push(prevRowDestroyer3, prevColDestroyer3)
-    DestroyerFinalPosition.push(DestroyerFinalClicked1, DestroyerFinalClicked2, DestroyerFinalClicked3)
+      shipVertical(prevRowDestroyer, prevColDestroyer, 3, "destroyer")
     }
+
     for (var row = 0; row < ROW; row++) {
       for (var column = 0; column < COLUMN; column++) {
-        if (row === DestroyerFinalPosition[0][0] && column === DestroyerFinalPosition[0][1]) {
-          board[row][column] = 1
-        }
-        if (row === DestroyerFinalPosition[1][0] && column === DestroyerFinalPosition[1][1]) {
-          board[row][column] = 1
-        }
-        if (row === DestroyerFinalPosition[2][0] && column === DestroyerFinalPosition[2][1]) {
-          board[row][column] = 1
+        for (var i = 0; i < 3; i++)
+        if (row === DestroyerFinalPosition[i][0] && column === DestroyerFinalPosition[i][1]) { board[row][column] = 1
         }
       }
     }
@@ -416,12 +483,6 @@ var setDestroyer = false
 var DestroyerClicked = false
 var freshMoveDestroyer = true
 var prevRowDestroyer, prevColDestroyer;
-var DestroyerFinalPosition = []
-var DestroyerFinalClicked1 = []
-var DestroyerFinalClicked2 = []
-var prevRowDestroyer2, prevColDestroyer2
-var DestroyerFinalClicked3 = []
-var prevRowDestroyer3, prevColDestroyer3;
 
 $("#destroyer").append("Destroyer").click(function () {
   DestroyerClicked = true
@@ -504,48 +565,25 @@ function makeCarrierWhite(row, column, length) {
   }
 }
 
+var colCarrierOccupies, rowCarrierOccupies
+var CarrierFinalHorizontalCol = []
+var CarrierFinalVerticalRow = []
 function setCarrierPosition () {
   if (setCarrier) {
     $("#carrier").off()
     $(".cell").off()
   }
-  CarrierFinalClicked1.push(prevRowCarrier, prevColCarrier)
-   if (CarrierDirection === "horizontal") {
-     prevRowCarrier2 = prevRowCarrier
-     prevColCarrier2 = prevColCarrier + 1
-     CarrierFinalClicked2.push(prevRowCarrier2, prevColCarrier2)
-     prevRowCarrier3 = prevRowCarrier
-     prevColCarrier3 = prevColCarrier +2
-     CarrierFinalClicked3.push(prevRowCarrier3, prevColCarrier3)
-     prevRowCarrier4 = prevRowCarrier
-     prevColCarrier4 = prevColCarrier + 3
-     CarrierFinalClicked4.push(prevRowCarrier4, prevColCarrier4)
-     CarrierFinalPosition.push(CarrierFinalClicked1, CarrierFinalClicked2, CarrierFinalClicked3, CarrierFinalClicked4)
+
+  if (CarrierDirection === "horizontal") {
+    shipHorizontal(prevRowCarrier, prevColCarrier, 4, "carrier")
  }
  else if (CarrierDirection === "vertical") {
-     prevRowCarrier2 = prevRowCarrier + 1
-     prevColCarrier2 = prevColCarrier
-   CarrierFinalClicked2.push(prevRowCarrier2, prevColCarrier2)
-     prevRowCarrier3 = prevRowCarrier + 2
-     prevColCarrier3 = prevColCarrier
-   CarrierFinalClicked3.push(prevRowCarrier3, prevColCarrier3)
-     prevRowCarrier4 = prevRowCarrier + 3
-     prevColCarrier4 = prevColCarrier
-    CarrierFinalClicked4.push(prevRowCarrier4, prevColCarrier4)
-    CarrierFinalPosition.push(CarrierFinalClicked1, CarrierFinalClicked2, CarrierFinalClicked3, CarrierFinalClicked4)
+   shipVertical(prevRowCarrier, prevColCarrier, 4, "carrier")
  }
  for (var row = 0; row < ROW; row++) {
    for (var column = 0; column < COLUMN; column++) {
-     if (row === CarrierFinalPosition[0][0] && column === CarrierFinalPosition[0][1]) {
-       board[row][column] = 1
-     }
-     if (row === CarrierFinalPosition[1][0] && column === CarrierFinalPosition[1][1]) {
-       board[row][column] = 1
-     }
-     if (row === CarrierFinalPosition[2][0] && column === CarrierFinalPosition[2][1]) {
-       board[row][column] = 1
-     }
-     if (row === CarrierFinalPosition[3][0] && column === CarrierFinalPosition[3][1]) {
+     for (var i = 0; i < 4; i++)
+     if (row === CarrierFinalPosition[i][0] && column === CarrierFinalPosition[i][1]) {
        board[row][column] = 1
      }
    }
@@ -556,16 +594,6 @@ var CarrierClicked = false
 var setCarrier = false
 var freshMoveCarrier = true
 var prevRowCarrier, prevColCarrier;
-var CarrierFinalPosition = []
-var CarrierFinalClicked1 = []
-var CarrierFinalClicked2 = []
-var CarrierFinalClicked3 = []
-var CarrierFinalClicked4 = []
-var prevRowCarrier2, prevColCarrier2
-var CarrierFinalClicked3 = []
-var prevRowCarrier3, prevColCarrier3;
-var CarrierFinalClicked4 = []
-var prevRowCarrier4, prevColCarrier4;
 
 $("#carrier").append("Carrier").click(function () {
     CarrierClicked = true
@@ -652,82 +680,39 @@ function makeBattleshipWhite (row, column, length) {
   }
 }
 
+var colBattleshipOccupies, rowBattleshipOccupies
+var BattleshipFinalHorizontalCol = []
+var BattleshipFinalVerticalRow = []
+
 function setBattleshipPosition() {
   if (setBattleship) {
     $("#battleship").off()
     $(".cell").off()
   }
-  BattleshipFinalClicked1.push(prevRowBattleship, prevColBattleship)
+
     if (BattleshipDirection === "horizontal") {
-      prevRowBattleship2 = prevRowBattleship
-      prevColBattleship2 = prevColBattleship + 1
-    BattleshipFinalClicked2.push(prevRowBattleship2, prevColBattleship2)
-      prevRowBattleship3 = prevRowBattleship
-      prevColBattleship3 = prevColBattleship + 2
-    BattleshipFinalClicked3.push(prevRowBattleship3, prevColBattleship3)
-    prevRowBattleship4 = prevRowBattleship
-    prevColBattleship4 = prevColBattleship + 3
-    BattleshipFinalClicked4.push(prevRowBattleship4, prevColBattleship4)
-    prevRowBattleship5 = prevRowBattleship
-    prevColBattleship5 = prevColBattleship + 4
-    BattleshipFinalClicked5.push(prevRowBattleship5, prevColBattleship5)
-    BattleshipFinalPosition.push(BattleshipFinalClicked1, BattleshipFinalClicked2, BattleshipFinalClicked3, BattleshipFinalClicked4, BattleshipFinalClicked5)
-    console.log(BattleshipFinalPosition);
+      shipHorizontal(prevRowBattleship, prevColBattleship, 5, "battleship")
     }
 
     else if (BattleshipDirection === "vertical") {
-      prevRowBattleship2 = prevRowBattleship + 1
-      prevColBattleship2 = prevColBattleship
-    BattleshipFinalClicked2.push(prevRowBattleship2, prevColBattleship2)
-      prevRowBattleship3 = prevRowBattleship + 2
-      prevColBattleship3 = prevColBattleship
-    BattleshipFinalClicked3.push(prevRowBattleship3, prevColBattleship3)
-      prevRowBattleship4 = prevRowBattleship + 3
-      prevColBattleship4 = prevColBattleship
-    BattleshipFinalClicked4.push(prevRowBattleship4, prevColBattleship4)
-      prevRowBattleship5 = prevRowBattleship + 4
-      prevColBattleship5 = prevColBattleship
-    BattleshipFinalClicked5.push(prevRowBattleship5, prevColBattleship5)
-    BattleshipFinalPosition.push(BattleshipFinalClicked1, BattleshipFinalClicked2, BattleshipFinalClicked3, BattleshipFinalClicked4, BattleshipFinalClicked5)
+      shipVertical(prevRowBattleship, prevColBattleship, 5, "battleship")
     }
-        // console.log(BattleshipFinalPosition);
-    for (var row = 0; row < ROW; row++) {
-      for (var column = 0; column < COLUMN; column++) {
-        if (row === BattleshipFinalPosition[0][0] && column === BattleshipFinalPosition[0][1]) {
-          board[row][column] = 1
-        }
-        if (row === BattleshipFinalPosition[1][0] && column === BattleshipFinalPosition[1][1]) {
-          board[row][column] = 1
-        }
-        if (row === BattleshipFinalPosition[2][0] && column === BattleshipFinalPosition[2][1]) {
-          board[row][column] = 1
-        }
-        if (row === BattleshipFinalPosition[3][0] && column === BattleshipFinalPosition[3][1]) {
-          board[row][column] = 1
-        }
-        if (row === BattleshipFinalPosition[4][0] && column === BattleshipFinalPosition[4][1]) {
-          board[row][column] = 1
-        }
-      }
-    }
-    // console.log(board);
+
+    // for (var row = 0; row < ROW; row++) {
+    //   for (var column = 0; column < COLUMN; column++) {
+    //     for (var i = 0; i < 5; i++)
+    //     if (row === BattleshipFinalPosition[i][0] && column === BattleshipFinalPosition[i][1]) {
+    //       board[row][column] = 1
+    //     }
+    //   }
+    // }
 }
+
 var freshMoveBattleship = true
 var BattleshipClicked = false
 var setBattleship = false
 var prevColBattleship, prevRowBattleship;
 var BattleshipFinalPosition = []
-var BattleshipFinalClicked1 = []
-var BattleshipFinalClicked2 = []
-var BattleshipFinalClicked3 = []
-var BattleshipFinalClicked4 = []
-var prevRowBattleship2, prevColBattleship2
-var BattleshipFinalClicked3 = []
-var prevRowBattleship3, prevColBattleship3;
-var BattleshipFinalClicked4 = []
-var prevRowBattleship4, prevColBattleship4;
-var BattleshipFinalClicked5 = []
-var prevRowBattleship5, prevColBattleship5;
 
 $("#battleship").append("Battleship").click(function () {
   BattleshipClicked = true
@@ -781,9 +766,11 @@ $("#setship").append("Set Ship").click(function () {
    }
 })
 
+
 var playernumberofpositionsfilled = 0
 var playerclickedthisrow, playerclickedthiscol;
 $("#start").append("Start").click(function () {
+  console.log(board);
   for (let row = 0; row < ROW; row++) {
     for (let column = 0; column < COLUMN; column++) {
       if (board[row][column] === 1) {
@@ -792,7 +779,7 @@ $("#start").append("Start").click(function () {
     }
   }
     if (playernumberofpositionsfilled === 17) {
-      alert("OFF TO WAR!!")
+      // alert("OFF TO WAR!!")
       $(".cell").off()
       playernumberofpositionsfilled = 0
       for (let comcellrow = 0; comcellrow < ROW; comcellrow++) {
@@ -808,6 +795,43 @@ $("#start").append("Start").click(function () {
       }
     }
     else if (playernumberofpositionsfilled < 17) {
-      alert("Some ships have not been placed")
+      // alert("Some ships have not been placed")
   }
 })
+
+
+// var playerclickedthisrow, playerclickedthiscol;
+//
+// $("#start").append("Start").click(function () {
+//   var debugmode = true
+//   if (debugmode) {
+//     playernumberofpositionsfilled = 17
+  // for (let row = 0; row < ROW; row++) {
+  //   for (let column = 0; column < COLUMN; column++) {
+  //     if (board[row][column] === 1) {
+  //       playernumberofpositionsfilled += 1
+  //     }
+  //   }
+  // }
+//     if (playernumberofpositionsfilled === 17) {
+//       // alert("OFF TO WAR!!")
+//       $(".cell").off()
+//       playernumberofpositionsfilled = 0
+//       for (let comcellrow = 0; comcellrow < ROW; comcellrow++) {
+//         for (let comcellcolumn = 0; comcellcolumn < COLUMN; comcellcolumn++) {
+//             $("#" +"R"+comcellrow+"C"+comcellcolumn+".comcell").click(function () {
+//               playerclickedthisrow = comcellrow
+//               playerclickedthiscol = comcellcolumn
+//               PlayerMakeAMove(playerclickedthisrow, playerclickedthiscol)
+//               // generateRandomRowCol()
+//               computerStrategy()
+//               computerMove()
+//             })
+//         }
+//       }
+//     }
+//     else if (playernumberofpositionsfilled < 17) {
+//       alert("Some ships have not been placed")
+//     }
+//   }
+// })

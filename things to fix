@@ -1,0 +1,9 @@
+things to work on and fix
+1. make sure that random numbers generated are not repeated for the computer
+2. generate ships for the computer without hard coding
+3. fix the bug that causes the ships not to "erase" after new ship is being built
+4. when ships are placed side by side, how to prevent overlap?
+OR hard code the prevent overlap element by making sure that there is always a one cell surrounding the ship?
+5. refactor code --> what is repeated, grp into functions or loops
+6. need a restart button
+7. if ship has not been placed and set ship was clicked ---> unable to continue placing ships --> look into this functionality
