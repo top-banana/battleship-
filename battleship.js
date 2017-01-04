@@ -43,13 +43,14 @@ function colorACell(row,column,color) {
 }
 
 // function to run after each ship has been set. allows u to determine the final row and column of the ships
+// after ship has been set, mark out its border (in the grid) with values of 3. when trying to place another boat, if it runs through the row or column and it meets a 3 within the grid, the ship will automaticaly rotate... it placing the ship in that position is blocked
 function shipHorizontal(row, column, length, shiptype) {
   for (var i = 0; i < length; i++) {
     if (shiptype === "patrolboat") {
       colBoatOccupies = column + i
       BoatFinalHorizontalCol.push(colBoatOccupies)
-      console.log("boat horizontal");
-      console.log(BoatFinalHorizontalCol);
+      // console.log("boat horizontal");
+      // console.log(BoatFinalHorizontalCol);
     }
     if (shiptype === "submarine") {
       colSubOccupies = column + i
@@ -80,8 +81,8 @@ function shipVertical(row, column, length, shiptype) {
     if (shiptype === "patrolboat") {
       rowBoatOccupies = row + i
       BoatFinalVerticalRow.push(rowBoatOccupies)
-      console.log("boat vertical");
-      console.log(BoatFinalVerticalRow);
+      // console.log("boat vertical");
+      // console.log(BoatFinalVerticalRow);
     }
     if (shiptype === "submarine") {
       rowSubOccupies = row + i
@@ -174,7 +175,9 @@ function makeBoatWhite(row, column, length) {
 
 var colBoatOccupies, rowBoatOccupies
 var BoatFinalHorizontalCol = []
+// final COLUMN values of the row ONLY
 var BoatFinalHorizontalCol1 = []
+// includes row and column values which have been derived from BoatFinalHorizontalCol
 var BoatFinalHorizontalCol2 = []
 var BoatFinalPositionHorizontal = []
 
@@ -182,13 +185,19 @@ var BoatFinalVerticalRow = []
 var BoatFinalVerticalRow1 = []
 var BoatFinalVerticalRow2 = []
 var BoatFinalPositionVertical = []
+var horizontalboatrowtoupdatetop, horizontalboatrowtoupdatebottom
+var horizontalboatcoltoupdateleft, horizontalboatcoltoupdateright
+var verticalboatrowtoupdatetop, verticalboatrowtoupdatebottom
+var verticalboatcoltoupdateleft, verticalboatcoltoupdateright
+// // zero refers to the cell that was clicked
+// // setShipPosition functiosn determine theh final position of the ships
+//   //
 
 function setBoatPosition() {
   if (setBoat) {
     $("#patrolboat").off()
     $(".cell").off()
   }
-
     if (BoatDirection === "horizontal") {
       shipHorizontal(prevRowBoat, prevColBoat, 2, "patrolboat")
       BoatFinalHorizontalCol1.push(prevRowBoat, BoatFinalHorizontalCol[0])
@@ -196,39 +205,93 @@ function setBoatPosition() {
       BoatFinalHorizontalCol2.push(prevRowBoat, BoatFinalHorizontalCol[1])
       // console.log(BoatFinalHorizontalCol2);
       BoatFinalPositionHorizontal.push(BoatFinalHorizontalCol1, BoatFinalHorizontalCol2)
-      // console.log(BoatFinalPositionHorizontal);
-      for (var row = 0; row < ROW; row++) {
-        for (var column = 0; column < COLUMN; column++) {
-          for (var i = 0; i < 2; i++) {
-            if (row === BoatFinalPositionHorizontal[i][0] && column === BoatFinalPositionHorizontal[i][1]) {
-              board[row][column] = 1
+      console.log(BoatFinalPositionHorizontal);
+
+      // updates the perimeter of the boat with value 3. to prevent the grid from being changed
+      // cannot use splice to change because it will alter the original array!!
+
+        horizontalboatrowtoupdatetop = prevRowBoat - 1
+        horizontalboatrowtoupdatebottom = prevRowBoat + 1
+        horizontalboatcoltoupdateleft = BoatFinalHorizontalCol[0] - 1
+        horizontalboatcoltoupdateright = BoatFinalHorizontalCol[1] + 1
+
+        for (var row = 0; row < ROW; row++) {
+          for (var column = 0; column < COLUMN; column++) {
+            for (var i = 0; i < 2; i++) {
+              if (row === BoatFinalPositionHorizontal[i][0] && column === BoatFinalPositionHorizontal[i][1]) {
+                board[row][column] = 1
+              }
             }
-          }
+
+            if (row === horizontalboatrowtoupdatetop && column === BoatFinalHorizontalCol[0]) {
+              board[row][column] = 3
+            }
+            if (row === horizontalboatrowtoupdatetop && column === BoatFinalHorizontalCol[1]) {
+                board[row][column] = 3
+            }
+            if (row === horizontalboatrowtoupdatebottom && column === BoatFinalHorizontalCol[0]) {
+                board[row][column] = 3
+            }
+            if (row === horizontalboatrowtoupdatebottom && column === BoatFinalHorizontalCol[1]) {
+              board[row][column] = 3
+            }
+            if (row === prevRowBoat && column === horizontalboatcoltoupdateleft) {
+              board[row][column] = 3
+            }
+            if (row === prevRowBoat && column === horizontalboatcoltoupdateright) {
+              board[row][column] = 3
+            }
         }
       }
-    }
+      console.log(board);
+  }
     else if (BoatDirection === "vertical") {
       shipVertical(prevRowBoat, prevColBoat, 2, "patrolboat")
-      console.log("set boat vertical");
+      // console.log("set boat vertical");
       BoatFinalVerticalRow1.push(BoatFinalVerticalRow[0], prevColBoat)
-      console.log(BoatFinalVerticalRow1);
+      // console.log(BoatFinalVerticalRow1);
       BoatFinalVerticalRow2.push(BoatFinalVerticalRow[1], prevColBoat)
-      console.log(BoatFinalVerticalRow2);
+      // console.log(BoatFinalVerticalRow2);
       BoatFinalPositionVertical.push(BoatFinalVerticalRow1, BoatFinalVerticalRow2)
-      console.log(BoatFinalPositionVertical);
+      // console.log(BoatFinalPositionVertical);
+      // on the board, determine where the ships are marked
+      // determine the perimeter of the ships
+      verticalboatrowtoupdatetop = prevRowBoat - 1
+      verticalboatrowtoupdatebottom = prevRowBoat + 2
+      verticalboatcoltoupdateleft = prevColBoat - 1
+      verticalboatcoltoupdateright = prevColBoat + 1
+
       for (var row = 0; row < ROW; row++) {
         for (var column = 0; column < COLUMN; column++) {
           for (var i = 0; i < 2; i++) {
             if (row === BoatFinalPositionVertical[i][0] && column === BoatFinalPositionVertical[i][1]) {
               board[row][column] = 1
-              // on the board, determine where the ships are marked
             }
           }
+            if (row === verticalboatrowtoupdatetop && column === prevColBoat) {
+              board[row][column] = 3
+            }
+            if (row === verticalboatrowtoupdatebottom && column === prevColBoat) {
+              board[row][column] = 3
+            }
+            if (row === prevRowBoat && column === verticalboatcoltoupdateleft) {
+              board[row][column] = 3
+            }
+            if (row === prevRowBoat && column === verticalboatcoltoupdateright) {
+              board[row][column] = 3
+            }
+            if (row === (prevRowBoat + 1) && column === verticalboatcoltoupdateleft) {
+              board[row][column] = 3
+            }
+            if (row === (prevRowBoat+1) && column === verticalboatcoltoupdateright) {
+              board[row][column] = 3
+            }
         }
       }
     }
-    console.log(board);
+  console.log(board);
 }
+
 
 var freshMoveBoat = true
 var BoatClicked = false
@@ -353,6 +416,7 @@ function setSubPosition () {
 
   }
 
+
   // for (var row = 0; row < ROW; row++) {
   //   for (var column = 0; column < COLUMN; column++) {
   //     for (var i = 0; i < 3; i++) {
@@ -453,8 +517,23 @@ function makeDestroyerWhite(row, column, length) {
 }
 
 var colDestroyerOccupies, rowDestroyerOccupies;
+
 var DestroyerFinalHorizontalCol = []
+var DestroyerFinalHorizontalCol1 = []
+var DestroyerFinalHorizontalCol2 = []
+var DestroyerFinalHorizontalCol3 = []
+var DestroyerFinalHorizontal = []
+
 var DestroyerFinalVerticalRow = []
+var DestroyerFinalVerticalRow1 = []
+var DestroyerFinalVerticalRow2 = []
+var DestroyerFinalVerticalRow3 = []
+var DestroyerFinalVertical = []
+
+var horizontaldestroyerrowtoupdatetop, horizontaldestroyerrowtoupdatebottom
+var horizontaldestroyercoltoupdateleft, horizontaldestroyercoltoupdateright
+var verticaldestroyerrowtoupdatetop, verticaldestroyerrowtoupdatebottom
+var verticaldestroyercoltoupdateleft, verticaldestroyercoltoupdateright
 
 function setDestroyerPosition() {
   if(setDestroyer) {
@@ -465,17 +544,66 @@ function setDestroyerPosition() {
   // to find out final position of ship
     if (DestroyerDirection === "horizontal") {
       shipHorizontal(prevRowDestroyer, prevColDestroyer, 3, "destroyer")
-  }
-    else if (DestroyerDirection === "vertical") {
-      shipVertical(prevRowDestroyer, prevColDestroyer, 3, "destroyer")
-    }
+      DestroyerFinalHorizontalCol1.push(prevRowDestroyer, DestroyerFinalHorizontalCol[0])
+      DestroyerFinalHorizontalCol2.push(prevRowDestroyer, DestroyerFinalHorizontalCol[1])
+      DestroyerFinalHorizontalCol3.push(prevRowDestroyer, DestroyerFinalHorizontalCol[2])
+      DestroyerFinalHorizontal.push(DestroyerFinalHorizontalCol1, DestroyerFinalHorizontalCol2, DestroyerFinalHorizontalCol3)
 
-    for (var row = 0; row < ROW; row++) {
-      for (var column = 0; column < COLUMN; column++) {
-        for (var i = 0; i < 3; i++)
-        if (row === DestroyerFinalPosition[i][0] && column === DestroyerFinalPosition[i][1]) { board[row][column] = 1
+      horizontaldestroyerrowtoupdatetop = prevRowDestroyer - 1
+      horizontaldestroyerrowtoupdatebottom = prevRowDestroyer + 1
+      horizontaldestroyercoltoupdateleft = DestroyerFinalHorizontalCol[0] - 1
+      horizontaldestroyercoltoupdateright = DestroyerFinalHorizontalCol[2] + 1
+
+      for (var row = 0; row < ROW; row++) {
+        for (var column = 0; column < COLUMN; column++) {
+          for (var i = 0; i < 3; i++) {
+            if (row === DestroyerFinalHorizontal[i][0] && column === DestroyerFinalHorizontal[i][1]) {
+              board[row][column] = 1
+            }
+          }
+          // if (row === horizontaldestroyerrowtoupdatetop && column === DestroyerFinalHorizontalCol[0]) {
+          //   board[row][column] = 3
+          // }
+          // if (row === horizontaldestroyerrowtoupdatetop && column === DestroyerFinalHorizontalCol[1]) {
+          //   board[row][column] = 3
+          // }
+          // if (row === horizontaldestroyerrowtoupdatetop && column === DestroyerFinalHorizontalCol[2]) {
+          //   board[row][column] = 3
+          // }
+          // if (row === horizontaldestroyerrowtoupdatebottom && column === DestroyerFinalHorizontalCol[0]) {
+          //   board[row][column] = 3
+          // }
+          // if (row === horizontaldestroyerrowtoupdatebottom && column === DestroyerFinalHorizontalCol[1]) {
+          //   board[row][column] = 3
+          // }
+          // if (row === horizontaldestroyerrowtoupdatebottom && column === DestroyerFinalHorizontalCol[2]) {
+          //   board[row][column] = 3
+          // }
+          // if (row === prevRowDestroyer && column ===horizontaldestroyercoltoupdateleft) {
+          //   board[row][column] = 3
+          // }
+          // if (row === prevRowDestroyer && column ===horizontaldestroyercoltoupdateright) {
+          //   board[row][column] = 3
+          // }
         }
       }
+      console.log(board);
+    }
+    else if (DestroyerDirection === "vertical") {
+
+      shipVertical(prevRowDestroyer, prevColDestroyer, 3, "destroyer")
+      DestroyerFinalVerticalRow1.push(DestroyerFinalVerticalRow[0], prevColDestroyer)
+      DestroyerFinalVerticalRow2.push(DestroyerFinalVerticalRow[1], prevColDestroyer)
+      DestroyerFinalVerticalRow3.push(DestroyerFinalVerticalRow[2], prevColDestroyer)
+      DestroyerFinalVertical.push(DestroyerFinalVerticalRow1, DestroyerFinalVerticalRow2, DestroyerFinalVerticalRow3)
+
+      // for (var row = 0; row < ROW; row++) {
+      //   for (var column = 0; column < COLUMN; column++) {
+      //     for (var i = 0; i < 3; i++)
+      //     if (row === DestroyerFinalPosition[i][0] && column === DestroyerFinalPosition[i][1]) { board[row][column] = 1
+      //     }
+      //   }
+      // }
     }
 }
 
