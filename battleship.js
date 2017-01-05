@@ -243,7 +243,7 @@ function setBoatPosition() {
             }
         }
       }
-      console.log(board);
+      // console.log(board);
   }
     else if (BoatDirection === "vertical") {
       shipVertical(prevRowBoat, prevColBoat, 2, "patrolboat")
@@ -289,7 +289,7 @@ function setBoatPosition() {
         }
       }
     }
-  console.log(board);
+  // console.log(board);
 }
 
 
@@ -397,10 +397,11 @@ var SubFinalHorizontalCol3 = []
 // if VERTICAL --> row increases
 var SubFinalVerticalRow = []
 var SubFinalVertical = []
-var SubFinalVerticalCol1 = []
-var SubFinalVerticalCol2 = []
-var SubFinalVerticalCol3 = []
+var SubFinalVerticalRow1 = []
+var SubFinalVerticalRow2 = []
+var SubFinalVerticalRow3 = []
 
+var horizontalsubrowtoupdatetop, horizontalsubrowtoupdatebottom, horizontalsubcoltoupdateleft, horizontalsubcoltoupdateright
 function setSubPosition () {
   if (setSub) {
     $("#sub").off()
@@ -409,24 +410,100 @@ function setSubPosition () {
 
   if (SubDirection === "horizontal") {
     shipHorizontal(prevRowSub, prevColSub, 3, "submarine")
-  }
+    SubFinalHorizontalCol1.push(prevRowSub, SubFinalHorizontalCol[0])
+    SubFinalHorizontalCol2.push(prevRowSub, SubFinalHorizontalCol[1])
+    SubFinalHorizontalCol3.push(prevRowSub, SubFinalHorizontalCol[2])
+    SubFinalHorizontal.push(SubFinalHorizontalCol1, SubFinalHorizontalCol2, SubFinalHorizontalCol3)
+    // console.log(SubFinalHorizontal);
 
+    horizontalsubrowtoupdatetop = prevRowSub - 1
+    horizontalsubrowtoupdatebottom = prevRowSub + 1
+    horizontalsubcoltoupdateleft = SubFinalHorizontalCol[0] - 1
+    horizontalsubcoltoupdateright = SubFinalHorizontalCol[2] + 1
+
+  for (var row = 0; row < ROW; row++) {
+    for (var column = 0; column < COLUMN; column++) {
+      for (var i = 0; i < 3; i++) {
+        if (row === SubFinalHorizontal[i][0] && column === SubFinalHorizontal[i][1]) {
+          board[row][column] = 1
+        }
+      }
+      if (row === horizontalsubrowtoupdatetop && column === SubFinalHorizontalCol[0]) {
+        board[row][column] = 3
+      }
+      if (row === horizontalsubrowtoupdatetop && column === SubFinalHorizontalCol[1]) {
+        board[row][column] = 3
+      }
+      if (row === horizontalsubrowtoupdatetop && column === SubFinalHorizontalCol[2]) {
+        board[row][column] = 3
+      }
+      if (row === horizontalsubrowtoupdatebottom && column === SubFinalHorizontalCol[0]) {
+        board[row][column] = 3
+      }
+      if (row === horizontalsubrowtoupdatebottom && column === SubFinalHorizontalCol[1]) {
+        board[row][column] = 3
+      }
+      if (row === horizontalsubrowtoupdatebottom && column === SubFinalHorizontalCol[2]) {
+        board[row][column] = 3
+      }
+      if (row === prevRowSub && column === horizontalsubcoltoupdateleft) {
+        board[row][column] = 3
+      }
+      if (row === prevRowSub && column === horizontalsubcoltoupdateright) {
+        board[row][column] = 3
+      }
+    }
+  }
+  console.log(board);
+}
   else if (SubDirection === "vertical") {
     shipVertical(prevRowSub, prevColSub, 3, "submarine")
+    SubFinalVerticalRow1.push(SubFinalVerticalRow[0], prevColSub)
+    SubFinalVerticalRow2.push(SubFinalVerticalRow[1], prevColSub)
+    SubFinalVerticalRow3.push(SubFinalVerticalRow[2], prevColSub)
+    SubFinalVertical.push(SubFinalVerticalRow1, SubFinalVerticalRow2, SubFinalVerticalRow3)
 
+    verticalsubrowtoupdatetop = SubFinalVertical[0][0] - 1
+    verticalsubrowtoupdatebottom = SubFinalVertical[2][0] + 1
+    verticalsubcoltoupdateleft = prevColSub - 1
+    verticalsubcoltoupdateright = prevColSub + 1
+      for (var row = 0; row < ROW; row++) {
+        for (var column = 0; column < COLUMN; column++) {
+          for (var i = 0; i < 3; i++) {
+            if (row === SubFinalVertical[i][0] && column === SubFinalVertical[i][1]) {
+              board[row][column] = 1
+            }
+          }
+          if (row === verticalsubrowtoupdatetop && column === prevColSub) {
+            board[row][column] = 3
+          }
+          if (row === verticalsubrowtoupdatebottom && column === prevColSub) {
+            board[row][column] = 3
+          }
+          if (row === SubFinalVertical[0][0] && column === verticalsubcoltoupdateleft) {
+            board[row][column] = 3
+          }
+          if (row === SubFinalVertical[0][0] && column === verticalsubcoltoupdateright) {
+            board[row][column] = 3
+          }
+          if (row === SubFinalVertical[1][0] && column === verticalsubcoltoupdateleft) {
+            board[row][column] = 3
+          }
+          if (row === SubFinalVertical[1][0] && column === verticalsubcoltoupdateright) {
+            board[row][column] = 3
+          }
+          if (row === SubFinalVertical[2][0] && column === verticalsubcoltoupdateleft) {
+            board[row][column] = 3
+          }
+          if (row === SubFinalVertical[2][0] && column === verticalsubcoltoupdateright) {
+            board[row][column] = 3
+          }
+
+        }
+      }
+      console.log("vertical sub");
+      console.log(board);
   }
-
-
-  // for (var row = 0; row < ROW; row++) {
-  //   for (var column = 0; column < COLUMN; column++) {
-  //     for (var i = 0; i < 3; i++) {
-  //       if (row === SubFinalPosition[i][0] && column === SubFinalPosition[i][1]) {
-  //         board[row][column] = 1
-  //       }
-  //     }
-  //   }
-  // }
-  //       console.log(board);
 }
 
 
@@ -561,32 +638,33 @@ function setDestroyerPosition() {
               board[row][column] = 1
             }
           }
-          // if (row === horizontaldestroyerrowtoupdatetop && column === DestroyerFinalHorizontalCol[0]) {
-          //   board[row][column] = 3
-          // }
-          // if (row === horizontaldestroyerrowtoupdatetop && column === DestroyerFinalHorizontalCol[1]) {
-          //   board[row][column] = 3
-          // }
-          // if (row === horizontaldestroyerrowtoupdatetop && column === DestroyerFinalHorizontalCol[2]) {
-          //   board[row][column] = 3
-          // }
-          // if (row === horizontaldestroyerrowtoupdatebottom && column === DestroyerFinalHorizontalCol[0]) {
-          //   board[row][column] = 3
-          // }
-          // if (row === horizontaldestroyerrowtoupdatebottom && column === DestroyerFinalHorizontalCol[1]) {
-          //   board[row][column] = 3
-          // }
-          // if (row === horizontaldestroyerrowtoupdatebottom && column === DestroyerFinalHorizontalCol[2]) {
-          //   board[row][column] = 3
-          // }
-          // if (row === prevRowDestroyer && column ===horizontaldestroyercoltoupdateleft) {
-          //   board[row][column] = 3
-          // }
-          // if (row === prevRowDestroyer && column ===horizontaldestroyercoltoupdateright) {
-          //   board[row][column] = 3
-          // }
+          if (row === horizontaldestroyerrowtoupdatetop && column === DestroyerFinalHorizontalCol[0]) {
+            board[row][column] = 3
+          }
+          if (row === horizontaldestroyerrowtoupdatetop && column === DestroyerFinalHorizontalCol[1]) {
+            board[row][column] = 3
+          }
+          if (row === horizontaldestroyerrowtoupdatetop && column === DestroyerFinalHorizontalCol[2]) {
+            board[row][column] = 3
+          }
+          if (row === horizontaldestroyerrowtoupdatebottom && column === DestroyerFinalHorizontalCol[0]) {
+            board[row][column] = 3
+          }
+          if (row === horizontaldestroyerrowtoupdatebottom && column === DestroyerFinalHorizontalCol[1]) {
+            board[row][column] = 3
+          }
+          if (row === horizontaldestroyerrowtoupdatebottom && column === DestroyerFinalHorizontalCol[2]) {
+            board[row][column] = 3
+          }
+          if (row === prevRowDestroyer && column ===horizontaldestroyercoltoupdateleft) {
+            board[row][column] = 3
+          }
+          if (row === prevRowDestroyer && column ===horizontaldestroyercoltoupdateright) {
+            board[row][column] = 3
+          }
         }
       }
+      console.log("horizontal");
       console.log(board);
     }
     else if (DestroyerDirection === "vertical") {
@@ -597,13 +675,44 @@ function setDestroyerPosition() {
       DestroyerFinalVerticalRow3.push(DestroyerFinalVerticalRow[2], prevColDestroyer)
       DestroyerFinalVertical.push(DestroyerFinalVerticalRow1, DestroyerFinalVerticalRow2, DestroyerFinalVerticalRow3)
 
-      // for (var row = 0; row < ROW; row++) {
-      //   for (var column = 0; column < COLUMN; column++) {
-      //     for (var i = 0; i < 3; i++)
-      //     if (row === DestroyerFinalPosition[i][0] && column === DestroyerFinalPosition[i][1]) { board[row][column] = 1
-      //     }
-      //   }
-      // }
+      verticaldestroyerrowtoupdatetop = DestroyerFinalVerticalRow[0] - 1
+      verticaldestroyerrowtoupdatebottom = DestroyerFinalVerticalRow[2] + 1
+      verticaldestroyercoltoupdateleft = prevColDestroyer - 1
+      verticaldestroyercoltoupdateright = prevColDestroyer + 1
+
+      for (var row = 0; row < ROW; row++) {
+        for (var column = 0; column < COLUMN; column++) {
+          for (var i = 0; i < 3; i++) {
+            if (row === DestroyerFinalVertical[i][0] && column === DestroyerFinalVertical[i][1]) {
+              board[row][column] = 1
+            }
+          }
+            if (row === verticaldestroyerrowtoupdatetop && column === prevColDestroyer) {
+              board[row][column] = 3
+          }
+            if (row === verticaldestroyerrowtoupdatebottom && column === prevColDestroyer) {
+              board[row][column] = 3
+            }
+            if (row === DestroyerFinalVertical[0][0] && column === verticaldestroyercoltoupdateleft) {
+              board[row][column] = 3
+            }
+            if (row === DestroyerFinalVertical[0][0] && column === verticaldestroyercoltoupdateright) {
+              board[row][column] = 3
+            }
+            if (row === DestroyerFinalVertical[1][0] && column === verticaldestroyercoltoupdateleft) {
+              board[row][column] = 3
+            }
+            if (row === DestroyerFinalVertical[1][0] && column === verticaldestroyercoltoupdateright) {
+              board[row][column] = 3
+            }
+            if (row === DestroyerFinalVertical[2][0] && column === verticaldestroyercoltoupdateleft) {
+              board[row][column] = 3
+            }
+            if (row === DestroyerFinalVertical[2][0] && column === verticaldestroyercoltoupdateright) {
+              board[row][column] = 3
+            }
+        }
+      }
     }
 }
 
@@ -695,7 +804,22 @@ function makeCarrierWhite(row, column, length) {
 
 var colCarrierOccupies, rowCarrierOccupies
 var CarrierFinalHorizontalCol = []
+var CarrierFinalHorizontalCol1 = []
+var CarrierFinalHorizontalCol2 = []
+var CarrierFinalHorizontalCol3 = []
+var CarrierFinalHorizontalCol4 = []
+var CarrierFinalHorizontal = []
+
 var CarrierFinalVerticalRow = []
+var CarrierFinalVerticalRow1 = []
+var CarrierFinalVerticalRow2 = []
+var CarrierFinalVerticalRow3 = []
+var CarrierFinalVerticalRow4 = []
+var CarrierFinalVertical = []
+
+var horizontalcarrierrowtoupdatetop, horizontalcarrierrowtoupdatebottom, horizontalcarriercoltoupdateleft, horizontalcarriercoltoupdateright
+var verticalcarrierrowtoupdatetop, verticalcarrierrowtoupdatetopbottom, verticalcarriercoltoupdateleft, verticalcarriercoltoupdateright
+
 function setCarrierPosition () {
   if (setCarrier) {
     $("#carrier").off()
@@ -704,19 +828,115 @@ function setCarrierPosition () {
 
   if (CarrierDirection === "horizontal") {
     shipHorizontal(prevRowCarrier, prevColCarrier, 4, "carrier")
- }
+    CarrierFinalHorizontalCol1.push(prevRowCarrier, CarrierFinalHorizontalCol[0])
+    CarrierFinalHorizontalCol2.push(prevRowCarrier, CarrierFinalHorizontalCol[1])
+    CarrierFinalHorizontalCol3.push(prevRowCarrier, CarrierFinalHorizontalCol[2])
+    CarrierFinalHorizontalCol4.push(prevRowCarrier, CarrierFinalHorizontalCol[3])
+    CarrierFinalHorizontal.push(CarrierFinalHorizontalCol1, CarrierFinalHorizontalCol2, CarrierFinalHorizontalCol3, CarrierFinalHorizontalCol4)
+    // console.log(CarrierFinalHorizontal)
+    horizontalcarrierrowtoupdatetop = prevRowCarrier - 1
+    horizontalcarrierrowtoupdatebottom = prevRowCarrier + 1
+    horizontalcarriercoltoupdateleft = CarrierFinalHorizontal[0][1] - 1
+    horizontalcarriercoltoupdateright = CarrierFinalHorizontal[3][1] + 1
+
+    for (var row = 0; row < ROW; row++) {
+      for (var column = 0; column < COLUMN; column++) {
+        for (var i = 0; i < 4; i++) {
+          if (row === prevRowCarrier && column === CarrierFinalHorizontal[i][1]) {
+            board[row][column] = 1
+          }
+        }
+        if (row === horizontalcarrierrowtoupdatetop && column === CarrierFinalHorizontal[0][1]) {
+          board[row][column] = 3
+        }
+        if (row === horizontalcarrierrowtoupdatetop && column === CarrierFinalHorizontal[1][1]) {
+          board[row][column] = 3
+        }
+        if (row === horizontalcarrierrowtoupdatetop && column === CarrierFinalHorizontal[2][1]) {
+          board[row][column] = 3
+        }
+        if (row === horizontalcarrierrowtoupdatetop && column === CarrierFinalHorizontal[3][1]) {
+          board[row][column] = 3
+        }
+        if (row === horizontalcarrierrowtoupdatebottom && column === CarrierFinalHorizontal[0][1]) {
+          board[row][column] = 3
+        }
+        if (row === horizontalcarrierrowtoupdatebottom && column === CarrierFinalHorizontal[1][1]) {
+          board[row][column] = 3
+        }
+        if (row === horizontalcarrierrowtoupdatebottom && column === CarrierFinalHorizontal[2][1]) {
+          board[row][column] = 3
+        }
+        if (row === horizontalcarrierrowtoupdatebottom && column === CarrierFinalHorizontal[3][1]) {
+          board[row][column] = 3
+        }
+        if (row === prevRowCarrier && column === horizontalcarriercoltoupdateleft) {
+          board[row][column] = 3
+        }
+        if (row === prevRowCarrier && column === horizontalcarriercoltoupdateright) {
+          board[row][column] = 3
+        }
+      }
+    }
+    console.log(board);
+}
  else if (CarrierDirection === "vertical") {
    shipVertical(prevRowCarrier, prevColCarrier, 4, "carrier")
- }
- for (var row = 0; row < ROW; row++) {
-   for (var column = 0; column < COLUMN; column++) {
-     for (var i = 0; i < 4; i++)
-     if (row === CarrierFinalPosition[i][0] && column === CarrierFinalPosition[i][1]) {
-       board[row][column] = 1
-     }
-   }
+   CarrierFinalVerticalRow1.push(CarrierFinalVerticalRow[0], prevColCarrier)
+   CarrierFinalVerticalRow2.push(CarrierFinalVerticalRow[1], prevColCarrier)
+   CarrierFinalVerticalRow3.push(CarrierFinalVerticalRow[2], prevColCarrier)
+   CarrierFinalVerticalRow4.push(CarrierFinalVerticalRow[3], prevColCarrier)
+   CarrierFinalVertical.push(CarrierFinalVerticalRow1, CarrierFinalVerticalRow2, CarrierFinalVerticalRow3, CarrierFinalVerticalRow4)
+  //  console.log(CarrierFinalVertical);
+  verticalcarrierrowtoupdatetop = CarrierFinalVertical[0][0] - 1
+  verticalcarrierrowtoupdatebottom = CarrierFinalVertical[3][0] + 1
+  verticalcarriercoltoupdateleft = prevColCarrier - 1
+  verticalcarriercoltoupdateright = prevColCarrier + 1
+
+    for (var row = 0; row < ROW; row++) {
+      for (var column = 0; column < COLUMN; column++) {
+        for (var i = 0; i < 4; i++) {
+          if (row === CarrierFinalVertical[i][0] && column === prevColCarrier) {
+            board[row][column] = 1
+          }
+        }
+
+        if (row === verticalcarrierrowtoupdatetop && column === prevColCarrier) {
+          board[row][column] = 3
+        }
+        if (row === verticalcarrierrowtoupdatebottom && column === prevColCarrier) {
+          board[row][column] = 3
+        }
+        if (row === CarrierFinalVertical[0][0] && column === verticalcarriercoltoupdateleft) {
+          board[row][column] = 3
+        }
+        if (row === CarrierFinalVertical[0][0] && column === verticalcarriercoltoupdateright) {
+          board[row][column] = 3
+        }
+        if (row === CarrierFinalVertical[1][0] && column === verticalcarriercoltoupdateleft) {
+          board[row][column] = 3
+        }
+        if (row === CarrierFinalVertical[1][0] && column === verticalcarriercoltoupdateright) {
+          board[row][column] = 3
+        }
+        if (row === CarrierFinalVertical[2][0] && column === verticalcarriercoltoupdateleft) {
+          board[row][column] = 3
+        }
+        if (row === CarrierFinalVertical[2][0] && column === verticalcarriercoltoupdateright) {
+          board[row][column] = 3
+        }
+        if (row === CarrierFinalVertical[3][0] && column === verticalcarriercoltoupdateleft) {
+          board[row][column] = 3
+        }
+        if (row === CarrierFinalVertical[3][0] && column === verticalcarriercoltoupdateright) {
+          board[row][column] = 3
+        }
+      }
+    }
+    console.log(board);
  }
 }
+
 
 var CarrierClicked = false
 var setCarrier = false
@@ -810,7 +1030,24 @@ function makeBattleshipWhite (row, column, length) {
 
 var colBattleshipOccupies, rowBattleshipOccupies
 var BattleshipFinalHorizontalCol = []
+var BattleshipFinalHorizontalCol1 = []
+var BattleshipFinalHorizontalCol2 = []
+var BattleshipFinalHorizontalCol3 = []
+var BattleshipFinalHorizontalCol4 = []
+var BattleshipFinalHorizontalCol5 = []
+var BattleshipFinalHorizontal = []
+
 var BattleshipFinalVerticalRow = []
+var BattleshipFinalVerticalRow1 = []
+var BattleshipFinalVerticalRow2 = []
+var BattleshipFinalVerticalRow3 = []
+var BattleshipFinalVerticalRow4 = []
+var BattleshipFinalVerticalRow5 = []
+var BattleshipFinalVertical = []
+
+var horizontalbattleshiprowtoupdatetop, horizontalbattleshiprowtoupdatebottom, horizontalbattleshipcoltoupdateleft, horizontalbattleshipcoltoupdateright
+
+var verticalbattleshiprowtoupdatetop, verticalbattleshiprowtoupdatebottom, verticalbattleshipcoltoupdateleft, verticalbattleshipcoltoupdateright
 
 function setBattleshipPosition() {
   if (setBattleship) {
@@ -820,7 +1057,65 @@ function setBattleshipPosition() {
 
     if (BattleshipDirection === "horizontal") {
       shipHorizontal(prevRowBattleship, prevColBattleship, 5, "battleship")
-    }
+      BattleshipFinalHorizontalCol1.push(prevRowBattleship, BattleshipFinalHorizontalCol[0])
+      BattleshipFinalHorizontalCol2.push(prevRowBattleship, BattleshipFinalHorizontalCol[1])
+      BattleshipFinalHorizontalCol3.push(prevRowBattleship, BattleshipFinalHorizontalCol[2])
+      BattleshipFinalHorizontalCol4.push(prevRowBattleship, BattleshipFinalHorizontalCol[3])
+      BattleshipFinalHorizontalCol5.push(prevRowBattleship, BattleshipFinalHorizontalCol[4])
+      BattleshipFinalHorizontal.push(BattleshipFinalHorizontalCol1, BattleshipFinalHorizontalCol2, BattleshipFinalHorizontalCol3, BattleshipFinalHorizontalCol4, BattleshipFinalHorizontalCol5)
+
+      horizontalbattleshiprowtoupdatetop = prevRowBattleship - 1
+      horizontalbattleshiprowtoupdatebottom = prevRowBattleship + 1
+      horizontalbattleshipcoltoupdateleft = BattleshipFinalHorizontal[0][0] - 1
+      horizontalbattleshipcoltoupdateright = BattleshipFinalHorizontal[4][0] + 1
+
+      for (var row = 0; row < ROW; row++) {
+        for (var column = 0; column < COLUMN; column++) {
+          for (var i = 0; i < 5; i++) {
+            if (row === BattleshipFinalHorizontal[i][0] && column === BattleshipFinalHorizontal[i][1]) {
+              board[row][column] = 1
+            }
+          }
+            if (row === horizontalbattleshiprowtoupdatetop && column === BattleshipFinalHorizontal[0][1]) {
+              board[row][column] = 3
+            }
+            if (row === horizontalbattleshiprowtoupdatetop && column === BattleshipFinalHorizontal[1][1]) {
+              board[row][column] = 3
+            }
+            if (row === horizontalbattleshiprowtoupdatetop && column === BattleshipFinalHorizontal[2][1]) {
+              board[row][column] = 3
+            }
+            if (row === horizontalbattleshiprowtoupdatetop && column === BattleshipFinalHorizontal[3][1]) {
+              board[row][column] = 3
+            }
+            if (row === horizontalbattleshiprowtoupdatetop && column === BattleshipFinalHorizontal[4][1]) {
+              board[row][column] = 3
+            }
+            if (row === horizontalbattleshiprowtoupdatebottom && column === BattleshipFinalHorizontal[0][1]) {
+              board[row][column] = 3
+            }
+            if (row === horizontalbattleshiprowtoupdatebottom && column === BattleshipFinalHorizontal[1][1]) {
+              board[row][column] = 3
+            }
+            if (row === horizontalbattleshiprowtoupdatebottom && column === BattleshipFinalHorizontal[2][1]) {
+              board[row][column] = 3
+            }
+            if (row === horizontalbattleshiprowtoupdatebottom && column === BattleshipFinalHorizontal[3][1]) {
+              board[row][column] = 3
+            }
+            if (row === horizontalbattleshiprowtoupdatebottom && column === BattleshipFinalHorizontal[4][1]) {
+              board[row][column] = 3
+            }
+            if (row === prevRowBattleship && column === horizontalbattleshipcoltoupdateleft) {
+              board[row][column] = 3
+            }
+            if (row === prevRowBattleship && column === horizontalbattleshipcoltoupdateright) {
+            board[row][column] = 3
+          }
+        }
+      }
+      console.log(board);
+}
 
     else if (BattleshipDirection === "vertical") {
       shipVertical(prevRowBattleship, prevColBattleship, 5, "battleship")

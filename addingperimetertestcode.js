@@ -29,11 +29,11 @@ function placeBoatPerimeter(length, direction) {
         board[BoatFinalPositionHorizontal[0][0]][min-1] = 3
         board[BoatFinalPositionHorizontal[0][0]][max+1] = 3
     })
-    if (BoatFinalPositionHorizontal[BoatFinalPositionHorizontal.length-1][1] + 1 > 9) {
-      endrow = 9
-    } else {
-        endrow = BoatFinalPositionHorizontal[BoatFinalPositionHorizontal.length-1][1]
-    }
+    // if (BoatFinalPositionHorizontal[BoatFinalPositionHorizontal.length-1][1] + 1 > 9) {
+    //   endrow = 9
+    // } else {
+    //     endrow = BoatFinalPositionHorizontal[BoatFinalPositionHorizontal.length-1][1]
+    // }
 
   }
 }
