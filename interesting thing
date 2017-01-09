@@ -1,0 +1,46 @@
+- var board = [
+[0,3,3,0]
+[3,1,1,3]
+[0,3,3,0]
+[0,0,0,0]
+]
+
+right hand corner, row 0
+- var board = [
+[1,1,3,0]
+[3,3,0,0]
+[0,0,0,0]
+[0,0,0,0]
+]
+
+left hand corner, row 0
+- var board = [
+[0,3,1,1]
+[0,0,3,3]
+[0,0,0,0]
+[0,0,0,0]
+]
+
+
+function HorizontalShipPerimeter(row, column, length) {
+
+  for (var i = 0; i < length; i++) {
+      // all top right hand corners will obey this formula
+    if (row === 0 && column === 0) {
+      board[row+1][column+i] = 3
+      board[row][column+2] = 3
+    }
+    // all top left hand corners will obey this
+    if (row === 0 && column === 8) {
+      board[(row+1)][(column+i)] = 3
+      board[row][(column-1)] = 3
+    }
+}
+    else if (row > 0 && row < 9 && column !== 0 && column !== 9) {
+    // disregarding edge cases
+      board[(row+1)][column+i] = 3
+      board[row-1][column+i] = 3
+      board[row][column-1] = 3
+      board[row][column+2] = 3
+  }
+}

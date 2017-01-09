@@ -114,51 +114,48 @@ function shipVertical(row, column, length, shiptype) {
 var BoatDirection = "horizontal"
 
 function makeBoat(row, column, length) {
-
   for(let i = 0; i < length; i++) {
-    // why doesnt this commnd work?
     if (column  === 9) {
-        colorACell((row+i), column, "red")
-        BoatDirection = "vertical"
+    colorACell((row+i), column, "red")
+    BoatDirection = "vertical"
     }
     else {
-      colorACell(row, (column+i), "red")
-    }
-
-    if (BoatDirection === "horizontal") {
-      if (row === 9) {
-        $("#" +"R"+row+"C"+column).click(function () {
+        colorACell(row, (column+i), "red")
+      }
+  if (BoatDirection === "horizontal") {
+    if (row === 9) {
+      $("#" +"R"+row+"C"+column).click(function () {
         colorACell((row+i), column, "red")
         colorACell(row, column, "red")
         BoatDirection = "horizontal"
       })
     }
-      else {
-        $("#" +"R"+row+"C"+column).click(function () {
-        colorACell((row+i), column, "red")
-        colorACell(row, column, "red")
-        colorACell(row, (column+i), "white")
-        BoatDirection = "vertical"
-        })
-      }
+  else {
+    $("#" +"R"+row+"C"+column).click(function () {
+    colorACell((row+i), column, "red")
+    colorACell(row, column, "red")
+    colorACell(row, (column+i), "white")
+    BoatDirection = "vertical"
+    })
+  }
+}
+  else if (BoatDirection === "vertical") {
+    if (column === 9) {
+      $("#" +"R"+row+"C"+column).click(function () {
+      colorACell((row+i), column, "red")
+      colorACell(row, column, "red")
+      BoatDirection = "vertical"
+      })
     }
-    else if (BoatDirection === "vertical") {
-      if (column === 9) {
-        $("#" +"R"+row+"C"+column).click(function () {
-        colorACell((row+i), column, "red")
-        colorACell(row, column, "red")
-        BoatDirection = "vertical"
-        })
-      }
-      else {
-        $("#" +"R"+row+"C"+column).click(function () {
-        colorACell(row, (column+i), "red")
-        colorACell(row, column, "red")
-        colorACell((row+i), column, "white")
-        BoatDirection = "horizontal"
-        })
-      }
-    }
+  else {
+    $("#" +"R"+row+"C"+column).click(function () {
+    colorACell(row, (column+i), "red")
+    colorACell(row, column, "red")
+    colorACell((row+i), column, "white")
+    BoatDirection = "horizontal"
+    })
+  }
+  }
   }
 }
 
@@ -166,13 +163,15 @@ function makeBoatWhite(row, column, length) {
   for (let i = 0; i < length; i++) {
     if (BoatDirection === "horizontal") {
       colorACell(row, (column+i), "white")
+      console.log(row, (column+i));
     }
     else if (BoatDirection === "vertical") {
       colorACell((row+i), column, "white")
+      console.log((row+i), column);
     }
-  }
+    }
 }
-
+//
 var colBoatOccupies, rowBoatOccupies
 var BoatFinalHorizontalCol = []
 // final COLUMN values of the row ONLY
@@ -193,6 +192,43 @@ var verticalboatcoltoupdateleft, verticalboatcoltoupdateright
 // // setShipPosition functiosn determine theh final position of the ships
 //   //
 
+// function finalBoatPositionHorizontal() {
+//   BoatFinalHorizontalCol1.push(prevRowBoat, BoatFinalHorizontalCol[0])
+//   BoatFinalHorizontalCol2.push(prevRowBoat, BoatFinalHorizontalCol[1])
+//   BoatFinalPositionHorizontal.push(BoatFinalHorizontalCol1, BoatFinalHorizontalCol2)
+//   // updates the perimeter of the boat with value 3. to prevent the grid from being changed
+//   // cannot use splice to change because it will alter the original array!!
+// }
+// function updateBoardifBoatHorizontal() {
+//   for (var row = 0; row < ROW; row++) {
+//     for (var column = 0; column < COLUMN; column++) {
+//         for (var i = 0; i < 2; i++) {
+//           if (row === BoatFinalPositionHorizontal[i][0] && column === BoatFinalPositionHorizontal[i][1]) {
+//               board[row][column] = 1
+//             }
+//         }
+//         if (row === horizontalboatrowtoupdatetop && column === BoatFinalHorizontalCol[0]) {
+//           board[row][column] = 3
+//         }
+//         if (row === horizontalboatrowtoupdatetop && column === BoatFinalHorizontalCol[1]) {
+//           board[row][column] = 3
+//         }
+//         if (row === horizontalboatrowtoupdatebottom && column === BoatFinalHorizontalCol[0]) {
+//           board[row][column] = 3
+//         }
+//         if (row === horizontalboatrowtoupdatebottom && column === BoatFinalHorizontalCol[1]) {
+//           board[row][column] = 3
+//         }
+//         if (row === prevRowBoat && column === horizontalboatcoltoupdateleft) {
+//           board[row][column] = 3
+//         }
+//         if (row === prevRowBoat && column === horizontalboatcoltoupdateright) {
+//           board[row][column] = 3
+//         }
+//     }
+//   }
+// }
+
 function setBoatPosition() {
   if (setBoat) {
     $("#patrolboat").off()
@@ -201,97 +237,63 @@ function setBoatPosition() {
     if (BoatDirection === "horizontal") {
       shipHorizontal(prevRowBoat, prevColBoat, 2, "patrolboat")
       BoatFinalHorizontalCol1.push(prevRowBoat, BoatFinalHorizontalCol[0])
-      // console.log(BoatFinalHorizontalCol1);
       BoatFinalHorizontalCol2.push(prevRowBoat, BoatFinalHorizontalCol[1])
-      // console.log(BoatFinalHorizontalCol2);
       BoatFinalPositionHorizontal.push(BoatFinalHorizontalCol1, BoatFinalHorizontalCol2)
-      console.log(BoatFinalPositionHorizontal);
-
-      // updates the perimeter of the boat with value 3. to prevent the grid from being changed
-      // cannot use splice to change because it will alter the original array!!
-
         horizontalboatrowtoupdatetop = prevRowBoat - 1
         horizontalboatrowtoupdatebottom = prevRowBoat + 1
         horizontalboatcoltoupdateleft = BoatFinalHorizontalCol[0] - 1
         horizontalboatcoltoupdateright = BoatFinalHorizontalCol[1] + 1
-
-        for (var row = 0; row < ROW; row++) {
-          for (var column = 0; column < COLUMN; column++) {
-            for (var i = 0; i < 2; i++) {
-              if (row === BoatFinalPositionHorizontal[i][0] && column === BoatFinalPositionHorizontal[i][1]) {
-                board[row][column] = 1
-              }
-            }
-
-            if (row === horizontalboatrowtoupdatetop && column === BoatFinalHorizontalCol[0]) {
-              board[row][column] = 3
-            }
-            if (row === horizontalboatrowtoupdatetop && column === BoatFinalHorizontalCol[1]) {
-                board[row][column] = 3
-            }
-            if (row === horizontalboatrowtoupdatebottom && column === BoatFinalHorizontalCol[0]) {
-                board[row][column] = 3
-            }
-            if (row === horizontalboatrowtoupdatebottom && column === BoatFinalHorizontalCol[1]) {
-              board[row][column] = 3
-            }
-            if (row === prevRowBoat && column === horizontalboatcoltoupdateleft) {
-              board[row][column] = 3
-            }
-            if (row === prevRowBoat && column === horizontalboatcoltoupdateright) {
-              board[row][column] = 3
-            }
-        }
-      }
+        // updateBoardifBoatHorizontal()
+        placeHorizontalBoatPerimeter(prevRowBoat, prevColBoat, 2)
+    }
       // console.log(board);
   }
-    else if (BoatDirection === "vertical") {
-      shipVertical(prevRowBoat, prevColBoat, 2, "patrolboat")
-      // console.log("set boat vertical");
-      BoatFinalVerticalRow1.push(BoatFinalVerticalRow[0], prevColBoat)
-      // console.log(BoatFinalVerticalRow1);
-      BoatFinalVerticalRow2.push(BoatFinalVerticalRow[1], prevColBoat)
-      // console.log(BoatFinalVerticalRow2);
-      BoatFinalPositionVertical.push(BoatFinalVerticalRow1, BoatFinalVerticalRow2)
-      // console.log(BoatFinalPositionVertical);
-      // on the board, determine where the ships are marked
-      // determine the perimeter of the ships
-      verticalboatrowtoupdatetop = prevRowBoat - 1
-      verticalboatrowtoupdatebottom = prevRowBoat + 2
-      verticalboatcoltoupdateleft = prevColBoat - 1
-      verticalboatcoltoupdateright = prevColBoat + 1
-
-      for (var row = 0; row < ROW; row++) {
-        for (var column = 0; column < COLUMN; column++) {
-          for (var i = 0; i < 2; i++) {
-            if (row === BoatFinalPositionVertical[i][0] && column === BoatFinalPositionVertical[i][1]) {
-              board[row][column] = 1
-            }
-          }
-            if (row === verticalboatrowtoupdatetop && column === prevColBoat) {
-              board[row][column] = 3
-            }
-            if (row === verticalboatrowtoupdatebottom && column === prevColBoat) {
-              board[row][column] = 3
-            }
-            if (row === prevRowBoat && column === verticalboatcoltoupdateleft) {
-              board[row][column] = 3
-            }
-            if (row === prevRowBoat && column === verticalboatcoltoupdateright) {
-              board[row][column] = 3
-            }
-            if (row === (prevRowBoat + 1) && column === verticalboatcoltoupdateleft) {
-              board[row][column] = 3
-            }
-            if (row === (prevRowBoat+1) && column === verticalboatcoltoupdateright) {
-              board[row][column] = 3
-            }
-        }
-      }
-    }
+    // else if (BoatDirection === "vertical") {
+    //   shipVertical(prevRowBoat, prevColBoat, 2, "patrolboat")
+    //   // console.log("set boat vertical");
+    //   BoatFinalVerticalRow1.push(BoatFinalVerticalRow[0], prevColBoat)
+    //   // console.log(BoatFinalVerticalRow1);
+    //   BoatFinalVerticalRow2.push(BoatFinalVerticalRow[1], prevColBoat)
+    //   // console.log(BoatFinalVerticalRow2);
+    //   BoatFinalPositionVertical.push(BoatFinalVerticalRow1, BoatFinalVerticalRow2)
+    //   // console.log(BoatFinalPositionVertical);
+    //   // on the board, determine where the ships are marked
+    //   // determine the perimeter of the ships
+    //   verticalboatrowtoupdatetop = prevRowBoat - 1
+    //   verticalboatrowtoupdatebottom = prevRowBoat + 2
+    //   verticalboatcoltoupdateleft = prevColBoat - 1
+    //   verticalboatcoltoupdateright = prevColBoat + 1
+    //
+    //   for (var row = 0; row < ROW; row++) {
+    //     for (var column = 0; column < COLUMN; column++) {
+    //       for (var i = 0; i < 2; i++) {
+    //         if (row === BoatFinalPositionVertical[i][0] && column === BoatFinalPositionVertical[i][1]) {
+    //           board[row][column] = 1
+    //         }
+    //       }
+    //         if (row === verticalboatrowtoupdatetop && column === prevColBoat) {
+    //           board[row][column] = 3
+    //         }
+    //         if (row === verticalboatrowtoupdatebottom && column === prevColBoat) {
+    //           board[row][column] = 3
+    //         }
+    //         if (row === prevRowBoat && column === verticalboatcoltoupdateleft) {
+    //           board[row][column] = 3
+    //         }
+    //         if (row === prevRowBoat && column === verticalboatcoltoupdateright) {
+    //           board[row][column] = 3
+    //         }
+    //         if (row === (prevRowBoat + 1) && column === verticalboatcoltoupdateleft) {
+    //           board[row][column] = 3
+    //         }
+    //         if (row === (prevRowBoat+1) && column === verticalboatcoltoupdateright) {
+    //           board[row][column] = 3
+    //         }
+    //     }
+    //   }
+    // }
   // console.log(board);
-}
-
+// }
 
 var freshMoveBoat = true
 var BoatClicked = false
@@ -318,7 +320,7 @@ $("#patrolboat").append("Patrol boat").click(function () {
         }
       })
       if (board[row][column] === 1) {
-        console.log(board);
+        // console.log(board);
           $("#" +"R"+row+"C"+column).off()
       }
       if (row === 9 && column === 9) {
@@ -328,6 +330,7 @@ $("#patrolboat").append("Patrol boat").click(function () {
   }
   BoatClicked = true
 })
+
 
 var SubDirection = "horizontal"
 
@@ -454,7 +457,7 @@ function setSubPosition () {
       }
     }
   }
-  console.log(board);
+  // console.log(board);
 }
   else if (SubDirection === "vertical") {
     shipVertical(prevRowSub, prevColSub, 3, "submarine")
@@ -501,8 +504,8 @@ function setSubPosition () {
 
         }
       }
-      console.log("vertical sub");
-      console.log(board);
+      // console.log("vertical sub");
+      // console.log(board);
   }
 }
 
@@ -664,8 +667,8 @@ function setDestroyerPosition() {
           }
         }
       }
-      console.log("horizontal");
-      console.log(board);
+      // console.log("horizontal");
+      // console.log(board);
     }
     else if (DestroyerDirection === "vertical") {
 
@@ -878,7 +881,7 @@ function setCarrierPosition () {
         }
       }
     }
-    console.log(board);
+    // console.log(board);
 }
  else if (CarrierDirection === "vertical") {
    shipVertical(prevRowCarrier, prevColCarrier, 4, "carrier")
@@ -933,7 +936,7 @@ function setCarrierPosition () {
         }
       }
     }
-    console.log(board);
+    // console.log(board);
  }
 }
 
@@ -1066,8 +1069,8 @@ function setBattleshipPosition() {
 
       horizontalbattleshiprowtoupdatetop = prevRowBattleship - 1
       horizontalbattleshiprowtoupdatebottom = prevRowBattleship + 1
-      horizontalbattleshipcoltoupdateleft = BattleshipFinalHorizontal[0][0] - 1
-      horizontalbattleshipcoltoupdateright = BattleshipFinalHorizontal[4][0] + 1
+      horizontalbattleshipcoltoupdateleft = BattleshipFinalHorizontal[0][1] - 1
+      horizontalbattleshipcoltoupdateright = BattleshipFinalHorizontal[4][1] + 1
 
       for (var row = 0; row < ROW; row++) {
         for (var column = 0; column < COLUMN; column++) {
@@ -1114,21 +1117,72 @@ function setBattleshipPosition() {
           }
         }
       }
-      console.log(board);
+      // console.log(board);
 }
+// verticalbattleshiprowtoupdatetop, verticalbattleshiprowtoupdatebottom, verticalbattleshipcoltoupdateleft, verticalbattleshipcoltoupdateright
 
     else if (BattleshipDirection === "vertical") {
       shipVertical(prevRowBattleship, prevColBattleship, 5, "battleship")
-    }
+      BattleshipFinalVerticalRow1.push (BattleshipFinalVerticalRow[0], prevColBattleship)
+      BattleshipFinalVerticalRow2.push (BattleshipFinalVerticalRow[1], prevColBattleship)
+      BattleshipFinalVerticalRow3.push (BattleshipFinalVerticalRow[2], prevColBattleship)
+      BattleshipFinalVerticalRow4.push (BattleshipFinalVerticalRow[3], prevColBattleship)
+      BattleshipFinalVerticalRow5.push (BattleshipFinalVerticalRow[4], prevColBattleship)
+      BattleshipFinalVertical.push(BattleshipFinalVerticalRow1, BattleshipFinalVerticalRow2, BattleshipFinalVerticalRow3, BattleshipFinalVerticalRow4,     BattleshipFinalVerticalRow5)
+      // console.log(BattleshipFinalVertical);
+      verticalbattleshiprowtoupdatetop = BattleshipFinalVertical[0][0] - 1
+      verticalbattleshiprowtoupdatebottom = BattleshipFinalVertical[4][0] + 1
+      verticalbattleshipcoltoupdateleft = prevColBattleship - 1
+      verticalbattleshipcoltoupdateright = prevColBattleship + 1
 
-    // for (var row = 0; row < ROW; row++) {
-    //   for (var column = 0; column < COLUMN; column++) {
-    //     for (var i = 0; i < 5; i++)
-    //     if (row === BattleshipFinalPosition[i][0] && column === BattleshipFinalPosition[i][1]) {
-    //       board[row][column] = 1
-    //     }
-    //   }
-    // }
+      for (var row = 0; row < ROW; row++) {
+        for (var column = 0; column < COLUMN; column++) {
+          for (var i = 0; i < 5; i++) {
+            if (row === BattleshipFinalVertical[i][0] && column === BattleshipFinalVertical[i][1]) {
+              board[row][column] = 1
+            }
+          }
+          if (row === verticalbattleshiprowtoupdatetop && column === prevColBattleship) {
+            board[row][column] = 3
+          }
+          if (row === verticalbattleshiprowtoupdatebottom && column === prevColBattleship) {
+            board[row][column] = 3
+          }
+          if (row === BattleshipFinalVertical[0][0] && column === verticalbattleshipcoltoupdateleft) {
+            board[row][column] = 3
+          }
+          if (row === BattleshipFinalVertical[0][0] && column === verticalbattleshipcoltoupdateright ) {
+            board[row][column] = 3
+          }
+          if (row === BattleshipFinalVertical[1][0] && column === verticalbattleshipcoltoupdateleft) {
+            board[row][column] = 3
+          }
+          if (row === BattleshipFinalVertical[1][0] && column === verticalbattleshipcoltoupdateright ) {
+            board[row][column] = 3
+          }
+          if (row === BattleshipFinalVertical[2][0] && column === verticalbattleshipcoltoupdateleft) {
+            board[row][column] = 3
+          }
+          if (row === BattleshipFinalVertical[2][0] && column === verticalbattleshipcoltoupdateright ) {
+            board[row][column] = 3
+          }
+          if (row === BattleshipFinalVertical[3][0] && column === verticalbattleshipcoltoupdateleft) {
+            board[row][column] = 3
+          }
+          if (row === BattleshipFinalVertical[3][0] && column === verticalbattleshipcoltoupdateright ) {
+            board[row][column] = 3
+          }
+          if (row === BattleshipFinalVertical[4][0] && column === verticalbattleshipcoltoupdateleft) {
+            board[row][column] = 3
+          }
+          if (row === BattleshipFinalVertical[4][0] && column === verticalbattleshipcoltoupdateright ) {
+            board[row][column] = 3
+          }
+        }
+      }
+    }
+    // console.log("battleship");
+    // console.log(board);
 }
 
 var freshMoveBattleship = true

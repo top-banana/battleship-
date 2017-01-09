@@ -107,3 +107,15 @@ function placeBoatPerimeter(length, direction) {
 // } else if (shipOrientation === 'vertical') {
 //
 // }
+
+function placeHorizontalBoatPerimeter(row, column, length) {
+  // ignoring edge cases
+  for (var i = 0; i < length; i++) {
+    if (row !== 0 && row !== 9 && column !== 0 && column !== 9) {
+      board[row+1][column+i] = 3
+      board[row-1][column+1] = 3
+    }
+  }
+  board[row][column-1] = 3
+  board[row][length] = 3
+}
